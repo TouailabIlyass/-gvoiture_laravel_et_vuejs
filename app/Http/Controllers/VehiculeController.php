@@ -57,9 +57,9 @@ class VehiculeController extends Controller
         return request()->validate([
 			'immatricule' => 'required|max:30|',
 
-			'Marque' => 'required|max:30|',
+            'marque' => 'required|30',
 
-			'Modele' => 'required|max:30|',
+            'modele' => 'required|30',
 
 			'Nombre_Place' => 'required|max:30|',
 
@@ -81,7 +81,9 @@ class VehiculeController extends Controller
 
 			'Delai_debut' => 'required|max:30|',
 
-			'Delai_fin' => 'required|max:30|',
+            'Delai_fin' => 'required|max:30|',
+
+            'disponible' => 'required',
 		]);
  }
 
@@ -113,6 +115,20 @@ class VehiculeController extends Controller
     public function RestDestroy(Vehicule $vehicule)
     {
         return $vehicule->delete();
+    }
+
+    public function restGetAllMarque()
+    {
+       return Vehicule::select('marque')
+        ->groupBy('marque')
+        ->get();
+    }
+    public function restGetModelesByMarque($marques)
+    {   
+        return Vehicule::select('modele','immatricule')
+        ->where('marque',$marques)
+        ->where('disponible',1)
+        ->get();
     }
 }
         

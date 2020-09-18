@@ -40,13 +40,41 @@
         </div>
 </div> <!-- end nom et prenom -->
 
+<!-- model and marque -->
+<div class="form-group row justify-content-center">
+            <div class="col-sm-3 col-3">
+            <div class="col-sm-10">
+            <label for="Date_depart" class="col-form-label">Marque</label>
+            <select id='selectMarque' @change="selectMarque()">
+                <option :value="marque.marque" v-for="(marque,i) in marques" :key="i">{{marque.marque}}</option>
+            </select>
+            <p style="color:red;" v-if="errorsMarques" >{{errorsMarquest}}</p>
+            </div>
+        </div>
+        
+        <div class="col-sm-3 col-3">
+            <div class="col-sm-10">
+            <label for="Lieu_depart" class="col-form-label">Modele</label>
+            <select id='selectModele' @change="selectModele()">
+                <option :value="modele.modele" v-for="(modele,i) in modeles" :key="i">{{modele.modele}}</option>
+            </select>
+            <p style="color:red;" v-if="errorsModeles" >{{errorsModeles}}</p>
+            </div>
+        </div>
+</div>   
+
+
+
+<!-- end model and marque -->
+
+
 
 
 <div class="form-group row justify-content-center">
             <div class="col-sm-3 col-3">
             <div class="col-sm-10">
             <label for="immatricule" class="col-form-label">immatricule</label>
-            <input type="text"  class="form-control" id="immatricule" name="immatricule" v-model="reservation.immatricule" >
+            <input type="text" readonly class="form-control" id="immatricule" name="immatricule" v-model="reservation.immatricule" >
             <p style="color:red;" v-if="errors" >{{errors.immatricule}}</p>
             </div>
         </div>
@@ -135,7 +163,7 @@
 </div>        	
         <input type='hidden' name='_token' :value='token' />
 
-        <button class='btn btn-primary'  @click='addReservation()' name='save' v-if="errorsClient != ''">Save</button>
+        <button class='btn btn-primary'  @click='addReservation()' name='save' v-if="errorsClient == ''">Save</button>
 </div>
         </fieldset>
   
@@ -150,38 +178,35 @@
         'oldReservation'
     ]
     ,
+    watch:{
+      
+    }
+    ,
     data()
     {
         return {
             token: $('meta[name="csrf-token"]').attr('content'),
             reservation : {
-				numRes : '',
-				numPiece : '',
-				immatricule : '',
-				Date_depart : '',
-				Lieu_depart : '',
-				Date_retour : '',
-				Lieu_retour : '',
-				Montant : '',
-				Mode_paiement : '',
-				numPieceCond : '',
-				nom_banq : '',
-				num_cart : '',
+				
             },
             errors: '',
             errorsClient: '',
+            errorsMarques: '',
+            errorsModeles: '',
             isNumResFocused: false,
             client: {
                 nom: '',
                 prenom: '',
-            }
+            },
+            marques: {},
+            modeles: {},
             }
         },
         mounted() {
             console.log('reservationForm mounted.');
             if(this.editMethod)
                 this.reservation = this.oldReservation;
-            console.log('reservayion created');
+            console.log('reservation created');
             $("#numPiece").focus(function(){
             this.isNumResFocused = true;
             this.errorsClient = '';
@@ -206,21 +231,32 @@
             }
             console.log('yyyy');
             }.bind(this));
-
+            //////////Model
+            $('#selectMarque').change(function() {
+                
+            });
         },
-        created()
-        {  
+        async  created()
+        {       await  axios.get('http://localhost:8000/api/vehicules/marque/marques')
+                .then(response => {
+                       this.marques = response.data;
+                    })
+                .catch(error => {this.errorsMarques = error});
+                this.selectMarque();
+        },
+        computed:{
             
-        },
+        }
+        ,
     methods: {
         addReservation()
         {   
             var url = 'http://localhost:8000/api/reservations/';
             var type = 'post';
-            if(this.editMethod) {url+=this.reservation.numRes;type='put'}
+            if(this.editMethod) {url+=this.reservation.numRes;}
             $.ajax({
                 url: url,
-                type: type,
+                type: 'post',
                 datatype: 'json',
                 data : $("#form").serialize(),
                 success: function(data){
@@ -235,10 +271,37 @@
                })
         },
         onSubmit(){}
-        },
+        ,
+       async  selectMarque(){
+           await  axios.get('http://localhost:8000/api/vehicules/marque/modeles/'+$('#selectMarque').val())
+                .then(response => {
+                       //this.modeles = JSON.parse(JSON.stringify(response.data));
+                       this.modeles = response.data;
+                       this.reservation.immatricule = this.modeles[0].immatricule;
+                       console.log(response.data);
+                       console.log($('#selectMarque').val());
+                    })
+                .catch(error => {this.errorsModeles = error});
+            console.log('---');
+                console.log(this.modeles);
+             },
        
-        
-       
+        //////select modele
+              selectModele(){
+                 var modele = $('#selectModele').val();
+                 for(var i=0;i<this.modeles.length;i++)
+                 {
+                        if(this.modeles[i].modele == modele)
+                            {
+                                 this.reservation.immatricule = this.modeles[i].immatricule;
+                                 break;
+                            }
+                 }
+              },  
+            },
+
+        ///end select modele
+
     }
 </script>
         

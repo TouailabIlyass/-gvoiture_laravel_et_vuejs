@@ -11,8 +11,8 @@ class Vehicule extends Model {
 	public $incrementing = false;
     protected $fillable = [
 	'immatricule',
-	'Marque',
-	'Modele',
+	'marque',
+	'modele',
 	'Nombre_Place',
 	'Puissance',
 	'Date_circulation',
@@ -24,5 +24,6 @@ class Vehicule extends Model {
 	'Couleur',
 	'Delai_debut',
 	'Delai_fin',
+	'disponible',
 	];
 }

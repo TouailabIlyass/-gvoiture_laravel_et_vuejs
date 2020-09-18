@@ -40,14 +40,17 @@ Route::get('/vehicules/create', 'VehiculeController@create');
 Route::post('/vehicules', 'VehiculeController@store');
 Route::get('/vehicules/{vehicule}', 'VehiculeController@show');
 Route::get('/vehicules/{vehicule}/edit', 'VehiculeController@edit');
-Route::patch('/vehicules/{vehicule}', 'VehiculeController@update');
+Route::put('/vehicules/{vehicule}', 'VehiculeController@update');
 Route::delete('/vehicules/{vehicule}', 'VehiculeController@destroy');
 	//----------------Rest for vehicules Table-----------------------
 Route::get('/api/vehicules/limit/{limit?}', 'VehiculeController@restIndex');
 Route::get('/api/vehicules/{vehicule}', 'VehiculeController@restShow');
 Route::post('/api/vehicules', 'VehiculeController@restStore');
-Route::patch('/api/vehicules/{vehicule}', 'VehiculeController@restUpdate');
+Route::put('/api/vehicules/{vehicule}', 'VehiculeController@restUpdate');
 Route::delete('/api/vehicules/{vehicule}', 'VehiculeController@restDestroy');
+
+Route::get('/api/vehicules/marque/marques','VehiculeController@restGetAllMarque');
+Route::get('/api/vehicules/marque/modeles/{marque}','VehiculeController@restGetModelesByMarque');
 //-------------------End vehicules Routes------------
 
 
@@ -57,13 +60,13 @@ Route::get('/reservations/create', 'ReservationController@create');
 Route::post('/reservations', 'ReservationController@store');
 Route::get('/reservations/{reservation}', 'ReservationController@show');
 Route::get('/reservations/{reservation}/edit', 'ReservationController@edit');
-Route::patch('/reservations/{reservation}', 'ReservationController@update');
+Route::put('/reservations/{reservation}', 'ReservationController@update');
 Route::delete('/reservations/{reservation}', 'ReservationController@destroy');
 	//----------------Rest for reservations Table-----------------------
 Route::get('/api/reservations/limit/{limit?}', 'ReservationController@restIndex');
 Route::get('/api/reservations/{reservation}', 'ReservationController@restShow');
 Route::post('/api/reservations', 'ReservationController@restStore');
-Route::patch('/api/reservations/{reservation}', 'ReservationController@restUpdate');
+Route::put('/api/reservations/{reservation}', 'ReservationController@restUpdate');
 Route::delete('/api/reservations/{reservation}', 'ReservationController@restDestroy');
 //-------------------End reservations Routes------------
 
@@ -83,3 +86,22 @@ Route::post('/api/reservations', 'ReservationController@restStore');
 Route::patch('/api/reservations/{reservation}', 'ReservationController@restUpdate');
 Route::delete('/api/reservations/{reservation}', 'ReservationController@restDestroy');
 //-------------------End reservations Routes------------
+
+
+//-------------------typevehicules Routes---------------
+Route::get('/typevehicules', 'TypevehiculeController@index');
+Route::get('/typevehicules/create', 'TypevehiculeController@create');
+Route::post('/typevehicules', 'TypevehiculeController@store');
+Route::get('/typevehicules/{typevehicule}', 'TypevehiculeController@show');
+Route::get('/typevehicules/{typevehicule}/edit', 'TypevehiculeController@edit');
+Route::patch('/typevehicules/{typevehicule}', 'TypevehiculeController@update');
+Route::delete('/typevehicules/{typevehicule}', 'TypevehiculeController@destroy');
+	//----------------Rest for typevehicules Table-----------------------
+Route::get('/api/typevehicules/limit/{limit?}', 'TypevehiculeController@restIndex');
+Route::get('/api/typevehicules/{typevehicule}', 'TypevehiculeController@restShow');
+Route::post('/api/typevehicules', 'TypevehiculeController@restStore');
+Route::patch('/api/typevehicules/{typevehicule}', 'TypevehiculeController@restUpdate');
+Route::delete('/api/typevehicules/{typevehicule}', 'TypevehiculeController@restDestroy');
+
+
+//-------------------End typevehicules Routes------------

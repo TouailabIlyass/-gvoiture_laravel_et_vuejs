@@ -103,8 +103,13 @@ class ReservationController extends Controller
     
     public function restUpdate(Reservation $reservation)
     {
+        if($reservation == null) return false;
+        if ($reservation->Date_retour != request()->input('Date_retour'))
+            {
+                DB::update('update vehicules  set disponible = 1 where immatricule = ?', $reservation->immatricule);
+            }
         return $reservation->update($this->validateData());
-    }
+        }
 
     public function RestDestroy(Reservation $reservation)
     {

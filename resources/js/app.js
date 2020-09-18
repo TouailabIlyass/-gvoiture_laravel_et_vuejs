@@ -33,7 +33,7 @@ Vue.component('clientEdit-component', require('./components/clients/ClientEditCo
 
 
 Vue.component('reservationForm-component', require('./components/reservations/reservationFormComponent.vue').default);
-Vue.component('vreservationEdit-component', require('./components/reservations/reservationEditComponent.vue').default);
+Vue.component('reservationEdit-component', require('./components/reservations/reservationEditComponent.vue').default);
 
 
 Vue.component('vehiculeForm-component', require('./components/vehicules/vehiculeFormComponent.vue').default);

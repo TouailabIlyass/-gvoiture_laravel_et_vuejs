@@ -10,14 +10,14 @@
                         <!-- Name input-->
                         <div class="form-group">
                             <div class="col-md-4">
-                                <input id="name" name="name" type="text" placeholder="Nom/Prenom/Email/Id" class="form-control">
+                                <input id="name" name="name" type="text" placeholder="Num Reservation/Immatricule" class="form-control">
                             </div>
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary btn-lg">Recherch</button>
                             </div>
                             <div class="col-md-4 widget-right">
                             <button type="button" class="btn btn-success btn-lg pull-right"  data-toggle="modal" data-target="#CreateNewProduct">
-                            <em class="fa fa-plus"></em> Cree Un Client</button>
+                            <em class="fa fa-plus"></em> Ajouter Reservation</button>
                             </div>
                         </div>
                         
@@ -32,7 +32,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body tabs">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tab1" data-toggle="tab">Clients Actif</a></li>
+							<li class="active"><a href="#tab1" data-toggle="tab">Reservation Actif</a></li>
 							<li><a href="#tab2" data-toggle="tab">Clients Inactif</a></li>
 						</ul>
 						<div class="tab-content">
@@ -88,7 +88,7 @@
             <div class="modal-content">
               <div class="modal-header">
                     <center>
-                        <h3 class="modal-title align-middle" id="exampleModalLongTitle">Créer un Client</h3>
+                        <h3 class="modal-title align-middle" id="exampleModalLongTitle">Créer Reservation</h3>
                     </center>
               </div>
               <div class="modal-body">
@@ -139,7 +139,7 @@
 		}
 		,
 		methods:{
-			selectClient(reservation){
+			selectReservation(reservation){
 				this.editMethod = !this.editMethod;
 				this.reservation = reservation;
 			}

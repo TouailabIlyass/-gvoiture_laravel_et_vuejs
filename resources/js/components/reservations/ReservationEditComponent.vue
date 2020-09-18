@@ -1,7 +1,7 @@
 <template>
 
         <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Details Reservation
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-4 pull-right">
 
         <div class="panel panel-default">
             <div class="panel-heading">
