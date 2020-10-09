@@ -103,6 +103,7 @@
             <div class="col-sm-10">
             <label for="modele" class="col-form-label">Modele</label>
             <select id='modele' class="form-control" name="modele" @change="selectModele" v-model="reservation.modele" >
+                <option :value="reservation.modele" selected v-if="editMethod">{{reservation.modele}}</option>
                 <option  v-for="(modele,i) in allModeles" :key="i" :value="modele.modele" :selected="modele.modele==reservation.modele">{{modele.modele}}</option>
             </select>
             <p style="color:red;" v-if="errors" >{{errors.modele}}</p>
@@ -112,8 +113,8 @@
         <div class="col-sm-2 col-3">
             <div class="col-sm-10">
             <label for="immatricule" class="col-form-label">Immatricule</label>
-            <input type="text"  v-if="reservation.immatricule.length == 1" readonly class="form-control" id="immatricule" name="immatricule" v-model="reservation.immatricule[0]" >
-            <select id='selectImmatricule'  class="form-control" name="immatricule" v-else @change="selectModele()">
+            <input type="text"  v-if="editMethod" readonly class="form-control" id="immatricule" name="immatricule" v-model="reservation.immatricule" >
+            <select id='selectImmatricule' v-else-if="Array.isArray(reservation.immatricule)" class="form-control" name="immatricule" @change="selectModele()">
                 <option :value="immatricule" v-for="(immatricule,i) in reservation.immatricule" :key="i">{{immatricule}}</option>
             </select>
             <p style="color:red;" v-if="errors" >{{errors.immatricule}}</p>
@@ -221,7 +222,7 @@
         <div class="col-sm-2 col-2">
             <div class="col-sm-10">
             <label for="Montant" class="col-form-label">PU</label>
-            <input type="number"  class="form-control" id="pu" name="pu" min="-20" v-model="reservation.pu" >
+            <input type="number"  class="form-control" id="pu" name="pu" min="0" v-model="reservation.pu" >
             <p style="color:red;" v-if="errors" >{{errors.pu}}</p>
             </div>
         </div>
@@ -403,7 +404,6 @@ import { mapGetters, mapActions } from 'vuex';
                { 
                     this.reservation = this.oldReservation;
                     this.client = this.reservation.client;
-                   // this.reservation.Montant = this.oldReservation.Montant;
                     if(this.reservation.conducteur != null)
                         this.conducteur = this.reservation.conducteur;
                     this.isValide = true;

@@ -184,9 +184,6 @@ import { mapGetters, mapActions } from 'vuex';
             return {
             }
         },
-        created(){
-            this.setGenerateContrat(true);
-        },
         computed:{
               ...mapGetters(['ReservationFromStore']),
         }

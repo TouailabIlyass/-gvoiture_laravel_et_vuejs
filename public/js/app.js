@@ -3210,9 +3210,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {};
   },
-  created: function created() {
-    this.setGenerateContrat(true);
-  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['ReservationFromStore'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['setGenerateContrat', 'getReservations', 'getReservationsActif', 'getClients', 'getClientsActif', 'getVehicules', 'getVehiculesActif'])), {}, {
     generate: function generate() {
@@ -3763,6 +3760,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['editMethod', 'oldReservation'],
@@ -3824,8 +3822,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     if (this.editMethod) {
       this.reservation = this.oldReservation;
-      this.client = this.reservation.client; // this.reservation.Montant = this.oldReservation.Montant;
-
+      this.client = this.reservation.client;
       if (this.reservation.conducteur != null) this.conducteur = this.reservation.conducteur;
       this.isValide = true;
       console.log(this.oldReservation);
@@ -45935,20 +45932,33 @@ var render = function() {
                     ]
                   }
                 },
-                _vm._l(_vm.allModeles, function(modele, i) {
-                  return _c(
-                    "option",
-                    {
-                      key: i,
-                      domProps: {
-                        value: modele.modele,
-                        selected: modele.modele == _vm.reservation.modele
-                      }
-                    },
-                    [_vm._v(_vm._s(modele.modele))]
-                  )
-                }),
-                0
+                [
+                  _vm.editMethod
+                    ? _c(
+                        "option",
+                        {
+                          attrs: { selected: "" },
+                          domProps: { value: _vm.reservation.modele }
+                        },
+                        [_vm._v(_vm._s(_vm.reservation.modele))]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.allModeles, function(modele, i) {
+                    return _c(
+                      "option",
+                      {
+                        key: i,
+                        domProps: {
+                          value: modele.modele,
+                          selected: modele.modele == _vm.reservation.modele
+                        }
+                      },
+                      [_vm._v(_vm._s(modele.modele))]
+                    )
+                  })
+                ],
+                2
               ),
               _vm._v(" "),
               _vm.errors
@@ -45970,14 +45980,14 @@ var render = function() {
                 [_vm._v("Immatricule")]
               ),
               _vm._v(" "),
-              _vm.reservation.immatricule.length == 1
+              _vm.editMethod
                 ? _c("input", {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.reservation.immatricule[0],
-                        expression: "reservation.immatricule[0]"
+                        value: _vm.reservation.immatricule,
+                        expression: "reservation.immatricule"
                       }
                     ],
                     staticClass: "form-control",
@@ -45987,21 +45997,22 @@ var render = function() {
                       id: "immatricule",
                       name: "immatricule"
                     },
-                    domProps: { value: _vm.reservation.immatricule[0] },
+                    domProps: { value: _vm.reservation.immatricule },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.reservation.immatricule,
-                          0,
+                          _vm.reservation,
+                          "immatricule",
                           $event.target.value
                         )
                       }
                     }
                   })
-                : _c(
+                : Array.isArray(_vm.reservation.immatricule)
+                ? _c(
                     "select",
                     {
                       staticClass: "form-control",
@@ -46023,7 +46034,8 @@ var render = function() {
                       )
                     }),
                     0
-                  ),
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _vm.errors
                 ? _c("p", { staticStyle: { color: "red" } }, [
@@ -46516,12 +46528,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        id: "pu",
-                        name: "pu",
-                        min: "-20"
-                      },
+                      attrs: { type: "number", id: "pu", name: "pu", min: "0" },
                       domProps: { value: _vm.reservation.pu },
                       on: {
                         input: function($event) {
