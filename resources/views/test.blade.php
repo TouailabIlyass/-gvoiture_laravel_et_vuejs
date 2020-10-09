@@ -9,6 +9,7 @@
 	<link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/font-awesome.min.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/datepicker3.css')}}" rel="stylesheet">
+	<link href="{{ asset('css/sweetalert.min.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/styles.css')}}" rel="stylesheet">
 	
 	<!--Custom Font-->
@@ -18,29 +19,23 @@
 	<![endif]-->
 </head>
 <body>
-        
     <div id="app">
-    <div>@csrf</div>
-        <sidebar-component></sidebar-component>
-		
+		<sidebar-component v-if="!this.$store.state.reservations.generateContrat" user="{{ Auth::user()->name }}"></sidebar-component>
 		<router-view></router-view>
-        <div class="row">
+        <div class="row" v-if="!this.$store.state.reservations.generateContrat">
             <div class="col-sm-12">
             <p class="back-link">SoftCaisse Theme by <a href="https://www.softandscripts.com">Soft&Scripts</a></p>
 		</div>
-        </div>
+		</div>
     </div>
 </body>
 
-<!--
-    <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>
--->
 	<script src="{{ asset('js/jquery-1.11.1.min.js')}}"></script>
 	<script src="{{ asset('js/bootstrap.min.js')}}"></script>
 	<script src="{{ asset('js/bootstrap-datepicker.js')}}"></script>
 	<script src="{{ asset('js/custom.js')}}"></script>
-
+	<script src="{{ asset('js/sweetalert.min.js')}}"></script>
 	<script src="{{asset('js/app.js')}}"></script>
-
+	
 
 </html>

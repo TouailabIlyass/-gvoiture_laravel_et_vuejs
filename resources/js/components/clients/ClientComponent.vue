@@ -1,5 +1,19 @@
 <template>
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" >
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Clients</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Clients</h1>
+			</div>
+		</div><!--/.row-->
         <div class="row"  v-if="!editMethod" >
         <div class="col-sm-10">
         <div class="panel panel-default">
@@ -10,10 +24,7 @@
                         <!-- Name input-->
                         <div class="form-group">
                             <div class="col-md-4">
-                                <input id="searchField" name="name" type="text" placeholder="Nom/Prenom/Email/Id" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary btn-lg">Recherch</button>
+                                <input id="searchField" name="name" type="text" placeholder="Nom/Prenom/Email/Id" class="form-control" v-model="searchField">
                             </div>
                             <div class="col-md-4 widget-right">
                                 <button type="button" class="btn btn-success btn-lg pull-right" id='addClient' data-toggle="modal" data-target="#CreateNewProduct">
@@ -28,66 +39,83 @@
     </div>
 
 
-<div class="col-sm-12">
+<div class="col-sm-12" style="width: inherit" >
 				<div class="panel panel-default">
 					<div class="panel-body tabs">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tab1" data-toggle="tab">Clients Actif</a></li>
-							<li><a href="#tab2" data-toggle="tab">Clients Inactif</a></li>
+							<li :class="{active: isTabActif}"><a href="#tab1" data-toggle="tab" @click="isTabActif = true">Clients Actif</a></li>
+							<li :class="{active: !isTabActif}"><a href="#tab2" data-toggle="tab" @click="isTabActif = false">Clients Inactif</a></li>
 						</ul>
 						<div class="tab-content">
+							<div class="d-flex justify-content-center" v-if="typeof allClientsSearch.data != 'undefined'">
+								<pagination class="mt-5 mb-5" :data="allClientsSearch" @pagination-change-page="getClientsSearch(searchField)" ></pagination>
+							</div>
+
+							<div class="d-flex justify-content-center" v-else-if="isTabActif">
+								<pagination class="mt-5 mb-5" :data="allClientsActif" @pagination-change-page="getClientsActif" ></pagination>
+							</div>
+							<div class="d-flex justify-content-center" v-else-if="!isTabActif">
+								<pagination class="mt-5 mb-5" :data="allClients" @pagination-change-page="getClients" ></pagination>
+							</div>
+							<div style="color:red" v-if="!isTabActif && clientsErrors">{{clientsErrors}}</div>
+							<div style="color:red" v-if="isTabActif && clientsActifErrors">{{clientsActifErrors}}</div>
 							<div class="tab-pane fade in active" id="tab1">
 								<table class="table table-striped">
 								  <thead>
 								    <tr>
-								      									<th scope='col'>pieceIdentite</th>
-										<th scope='col'>numPiece</th>
-										<th scope='col'>dateDelivrPiece</th>
+								      	<th scope='col'>piece identite</th>
+										<th scope='col'>num piece</th>
+										<th scope='col'>date deliver piece</th>
 										<th scope='col'>nom</th>
 										<th scope='col'>prenom</th>
 										<th scope='col'>telephone</th>
-										<th scope='col'>numPermis</th>
-										<th scope='col'>dateDelivrPermis</th>
-										<th scope='col'>lieuDelivrPiece</th>
-										<th scope='col'>lieuDelivrPermis</th>
-										<th scope='col'>dateNaissance</th>
-										<th scope='col'>lieuNaissance</th>
-										<th scope='col'>codePostale</th>
+										<th scope='col'>num permis</th>
+										<th scope="col">date livre permis</th>
+										<th scope="col">date livre piece</th>
+										<th scope='col'>lieu deliver permis</th>
+										<th scope='col'>date naissance</th>
+										<th scope='col'>lieu naissance</th>
+										<th scope='col'>date deliver permis</th>
+										<th scope='col'>lieu deliver piece</th>
+										<th scope='col'>code postale</th>
 										<th scope='col'>email</th>
-										<th scope='col'>pieceIdentiteScan</th>
-										<th scope='col'>permisScan</th>
+										<th scope='col'>piece identite scan</th>
+										<th scope='col'>permis scan</th>
 										<th scope='col'>nationalite</th>
 										<th scope='col'>addresse</th>
-										<th scope='col'>ville_id</th>
+										<th scope='col'>ville</th>
 	
 								    </tr>
 								  </thead>
 								  <tbody>
                                     <tr v-for="client in clients" :key="client.numPiece" >
-																			<td>{{client.pieceIdentite}}</td>
+										<td>{{client.pieceIdentite}}</td>
 										<td>{{client.numPiece}}</td>
 										<td>{{client.dateDelivrPiece}}</td>
 										<td>{{client.nom}}</td>
 										<td>{{client.prenom}}</td>
 										<td>{{client.telephone}}</td>
 										<td>{{client.numPermis}}</td>
-										<td>{{client.dateDelivrPermis}}</td>
-										<td>{{client.lieuDelivrPiece}}</td>
-										<td>{{client.lieuDelivrPermis}}</td>
+										<td>{{client.dateLirePermis}}</td>
+										<td>{{client.dateLivrePiece}}</td>
+										<td>{{client.vdeliverpermis}}</td>
 										<td>{{client.dateNaissance}}</td>
-										<td>{{client.lieuNaissance}}</td>
+										<td>{{client.vnaiss}}</td>
+										<td>{{client.dateDelivrPermis}}</td>
+										<td>{{client.vdeliverpiece}}</td>
 										<td>{{client.codePostale}}</td>
 										<td>{{client.email}}</td>
 										<td>{{client.pieceIdentiteScan}}</td>
 										<td>{{client.permisScan}}</td>
-										<td>{{client.nationalite}}</td>
+										<td>{{client.paye}}</td>
 										<td>{{client.addresse}}</td>
-										<td>{{client.ville_id}}</td>
+										<td>{{client.ville}}</td>
 	
 										<td><button  class="btn btn-primary" @click="selectClient(client)"><em class="fa fa-file-o"></em></button></td>
                                     </tr>
-                                   
-								</tbody>
+								</tbody> <!-- end tabactif -->
+
+								
 								</table>
 							</div>
 						</div>
@@ -98,7 +126,7 @@
         <div class="row">
         <!-- Modal -->
         <div class="modal fade" id="CreateNewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document" >
             <div class="modal-content">
               <div class="modal-header">
                     <center>
@@ -127,10 +155,33 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
     export default {
 		props: [
 			
 		],
+		watch:{
+			allClients: function(){
+				if (!this.isTabActif)
+					this.clients = this.allClients.data;
+			},
+			allClientsActif: function(){
+				if (this.isTabActif)
+				this.clients = this.allClientsActif.data;
+			},
+			isTabActif: async function()
+			{
+				if(this.isTabActif)
+					this.clients = this.allClientsActif.data;
+				else
+					{	
+						if(typeof this.allClients.data === 'undefined')
+							await this.getClients(1);
+						this.clients = this.allClients.data;
+					}
+			},
+		}
+		,
         mounted() {
 			console.log('client Component mounted.');
 			this.search();
@@ -139,21 +190,17 @@
         {
             return {
 				clients : [],
-				clientsSearch: [],
 				client: '',
 				editMethod: false,
-                errors: '',
+				isTabActif: true,
+				searchField: '',
             }
         }
         ,
-        created()
+       async created()
         {
-            axios.get('http://localhost:8000/api/clients'
-            ).then(response => 
-			   { this.clients = response.data;
-			 	this.clientsSearch = this.clients;  
-			   }
-			).catch(error => this.errors = error);
+		   await this.getClientsActif(1);
+		   this.clients = this.allClientsActif.data;
 		}
 		,
 		methods:{
@@ -163,22 +210,27 @@
 			},
 			search()
 			{	var searchField = $('#searchField');
-				searchField.keyup(function() {
+				searchField.keyup(async function() {
 					console.log(searchField.val());
 					if(searchField.val().trim().length  == 0){
-						this.clients = this.clientsSearch;
+						if(this.isTabActif)
+							this.clients = this.allClientsActif.data;
+						else
+						this.clients = this.allClients.data;
+						delete this.allClientsSearch.data;
 						return;
 					}
-					axios.get('http://localhost:8000/api/clients/find/'+searchField.val()
-           			 ).then(res =>{
-							if(searchField.val().trim().length  != 0)
-							this.clients = res.data;
-						}
-						).catch(error => this.errors = error)
-					
+					await this.getClientsSearch(searchField.val());
+					this.clients = this.allClientsSearch.data;
+				
 				}.bind(this));
-			}
-		}
+			},
+		...mapActions(['getClients', 'getClientsActif', 'getClientsSearch']),
+        }
+        ,
+        computed:{
+             ...mapGetters(['allClients', 'allClientsActif', 'allClientsSearch','clientsErrors', 'clientsActifErrors']),
+        }
     }
    
 </script>

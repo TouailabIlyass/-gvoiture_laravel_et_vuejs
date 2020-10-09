@@ -57,9 +57,9 @@ class VehiculeController extends Controller
         return request()->validate([
 			'immatricule' => 'required|max:30|',
 
-            'marque' => 'required|30',
+            'marque' => 'required|max:30',
 
-            'modele' => 'required|30',
+            'modele' => 'required|max:30',
 
 			'Nombre_Place' => 'required|max:30|',
 
@@ -82,22 +82,38 @@ class VehiculeController extends Controller
 			'Delai_debut' => 'required|max:30|',
 
             'Delai_fin' => 'required|max:30|',
+            
+            'disponible' => '',
 
-            'disponible' => 'required',
 		]);
  }
 
 
     //----------------------------------------Rest Controllers----------------------
     
-    public function restIndex($limit = 0)
+    public function restIndex()
     {
-        return Vehicule::limit(99)->offset($limit)->get();
+        return Vehicule::orderBy('created_at', 'DESC')
+        ->paginate(2);
+    }
+
+    public function restVehiculeActif()
+    {
+        return Vehicule::orderBy('created_at','DESC')
+        ->where('disponible','=',0)
+        ->paginate(2);
     }
 
     public function restStore()
     {
-        return Vehicule::create($this->validateData());
+        try
+        {
+         Vehicule::create($this->validateData());
+         return true;
+        }catch(Exception $e){
+        return false;
+        } 
+        return false;
     }
 
     //Route Model Binding => \App\Customer $var
@@ -109,12 +125,26 @@ class VehiculeController extends Controller
     
     public function restUpdate(Vehicule $vehicule)
     {
-        return $vehicule->update($this->validateData());
+        try{
+            $vehicule->update($this->validateData());
+            return true;
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
+        return false;
     }
 
-    public function RestDestroy(Vehicule $vehicule)
+    public function restDestroy(Vehicule $vehicule)
     {
-        return $vehicule->delete();
+        try{
+            $vehicule->delete();
+            return true;
+        }catch(\Exception $e)
+        {
+            return false;
+        }
     }
 
     public function restGetAllMarque()
@@ -129,6 +159,15 @@ class VehiculeController extends Controller
         ->where('marque',$marques)
         ->where('disponible',1)
         ->get();
+    }
+
+    public function restGetOne($keyword)
+    {   if(strlen(trim($keyword)) == 0) return;
+        $data = Vehicule::where('immatricule', 'LIKE', '%'.$keyword.'%')
+        ->orWhere('marque','LIKE',"%{$keyword}%")
+        ->orWhere('modele','LIKE',"%{$keyword}%")
+        ->paginate(2);
+        return $data;
     }
 }
         

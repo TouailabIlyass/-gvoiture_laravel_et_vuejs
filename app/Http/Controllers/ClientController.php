@@ -71,6 +71,8 @@ class ClientController extends Controller
         'telephone' => 'required',
         'numPermis' => 'required',
         'dateDelivrPermis' => 'required',
+        'dateLivrePermis' => 'required',
+        'dateLivrePiece' => 'required',
         'lieuDelivrPiece' => 'required',
         'lieuDelivrPermis' => 'required',
         'dateNaissance' => 'required',
@@ -86,7 +88,7 @@ class ClientController extends Controller
     }
     
     ////////////Rest
-    public function RestIndex()
+    public function restIndex()
     {   
         $clients = DB::table('clients')
         ->join('payes', 'clients.nationalite', '=', 'payes.id')
@@ -100,31 +102,60 @@ class ClientController extends Controller
         ->addSelect('vnaiss.ville','vnaiss.ville as vnaiss')
         ->addSelect('vdeliverpiece.ville','vdeliverpiece.ville as vdeliverpiece')
         ->addSelect('vdeliverpermis.ville','vdeliverpermis.ville as vdeliverpermis')
-        ->get();
+        ->orderBy('created_at','DESC')
+        ->paginate(2);
        return $clients;
     }
 
+    public function restClientActif()
+    {   
+        $clients = DB::table('clients')
+        ->join('reservations','clients.numPiece','=','reservations.numPiece')
+        ->whereNull('reservations.Date_retour_reelle')
+        ->join('payes', 'clients.nationalite', '=', 'payes.id')
+        ->join('villes','clients.ville_id','=','villes.id')
+        ->join('villes as vnaiss','clients.lieuNaissance','=','vnaiss.id')
+        ->join('villes as vdeliverpiece','clients.lieuDelivrPiece','=','vdeliverpiece.id')
+        ->join('villes as vdeliverpermis','clients.lieuDelivrPermis','=','vdeliverpermis.id')
+        ->select('clients.*')
+        ->addSelect('payes.paye')
+        ->addSelect('villes.ville')
+        ->addSelect('vnaiss.ville','vnaiss.ville as vnaiss')
+        ->addSelect('vdeliverpiece.ville','vdeliverpiece.ville as vdeliverpiece')
+        ->addSelect('vdeliverpermis.ville','vdeliverpermis.ville as vdeliverpermis')
+        ->orderBy('clients.created_at','DESC')
+        ->paginate(2);
+       return $clients;
+    }
+    
 
-    public function RestStore(Request $request)
-    {
-        $client = new Client();
-        if($request->hasFile('uploadPermisScan') && $request->hasFile('uploadPieceIdentiteScan')){
-            $date = date('Y-m-d-H-i-s');
-            $fileNamePermisScan = request()->input('numPiece').'_'.$date.'_'.$request->uploadPermisScan->getClientOriginalName();
-            $fileNamePieceIdentiteScan = request()->input('numPiece').'_'.$date.'_'.$request->uploadPieceIdentiteScan->getClientOriginalName();
-            $request->file('uploadPermisScan')->storeAs('permis_scan', $fileNamePermisScan, 'public');
-            $request->file('uploadPieceIdentiteScan')->storeAs('pieceIdentite_scan', $fileNamePieceIdentiteScan, 'public');
-            request()->merge([
-                'permisScan' => $fileNamePermisScan,
-                'pieceIdentiteScan' => $fileNamePieceIdentiteScan
-            ]);
-
-        $client->create($this->validateClientData());
+    public function restStore(Request $request)
+    {  
+        try{
+            if($request->hasFile('uploadPermisScan') && $request->hasFile('uploadPieceIdentiteScan')){
+                $date = date('Y-m-d-H-i-s');
+                $fileNamePermisScan = request()->input('numPiece').'_'.$date.'_permis_'.$request->uploadPermisScan->getClientOriginalName();
+                $fileNamePieceIdentiteScan = request()->input('numPiece').'_'.$date.'_carte_'.$request->uploadPieceIdentiteScan->getClientOriginalName();
+                $request->file('uploadPermisScan')->storeAs('permis_scan', $fileNamePermisScan, 'public');
+                $request->file('uploadPieceIdentiteScan')->storeAs('pieceIdentite_scan', $fileNamePieceIdentiteScan, 'public');
+                request()->merge([
+                    'permisScan' => $fileNamePermisScan,
+                    'pieceIdentiteScan' => $fileNamePieceIdentiteScan
+                ]);
+            $client = new Client();
+            $client->create($this->validateClientData());
+            return true;
+            }
+            $error='{"errors":{"pieceIdentiteScan":"piece identite is required","permisScan":"permis is required"}}';
+            return $error;
+        } catch (\Exception $e) {
+            return false;
+        } catch (\Throwable $e) {
+            return false;
         }
-        return $request;
     }
 
-    public function RestUpdate(Request $request, Client $client)
+    public function restUpdate(Request $request, Client $client)
     {
        try{
             if ($client == null) return false;
@@ -138,7 +169,7 @@ class ClientController extends Controller
             }
             if($request->hasFile('uploadPermisScan')){
                 $date = date('Y-m-d-H-i-s');
-                $fileNamePermisScan = request()->input('numPiece').'_'.$date.'_'.$request->uploadPermisScan->getClientOriginalName();
+                $fileNamePermisScan = request()->input('numPiece').'_'.$date.'_permis_'.$request->uploadPermisScan->getClientOriginalName();
                 $request->file('uploadPermisScan')->storeAs('permis_scan', $fileNamePermisScan, 'public');
                 request()->merge([
                     'permisScan' => $fileNamePermisScan,
@@ -148,7 +179,7 @@ class ClientController extends Controller
             if($request->hasFile('uploadPieceIdentiteScan')){
                 $date = date('Y-m-d-H-i-s');
             
-                $fileNamePieceIdentiteScan = request()->input('numPiece').'_'.$date.'_'.$request->uploadPieceIdentiteScan->getClientOriginalName();
+                $fileNamePieceIdentiteScan = request()->input('numPiece').'_'.$date.'_carte_'.$request->uploadPieceIdentiteScan->getClientOriginalName();
                 
                 $request->file('uploadPieceIdentiteScan')->storeAs('pieceIdentite_scan', $fileNamePieceIdentiteScan, 'public');
                 request()->merge([
@@ -157,17 +188,29 @@ class ClientController extends Controller
                 ]);
             }
             $client->update($this->validateClientData());
-            return $client;
+            return true;
         }catch(Exception $e){
-            print_r($e);
+            return false;
         }
         return false;
     }
 
     public function RestGetOne($keyword)
     {   if(strlen(trim($keyword)) == 0) return;
-        $clients = Client::where('nom', 'LIKE', '%'.$keyword.'%')
-        ->orWhere('numPiece','LIKE',"%{$keyword}%")->get();
-        return $clients;
+        $data = Client::where('nom', 'LIKE', '%'.$keyword.'%')
+        ->orWhere('numPiece','LIKE',"%{$keyword}%")
+        ->paginate(2);
+        return $data;
+    }
+
+    public function restDestroy(Client $client)
+    {
+        try{
+            $client->delete();
+            return true;
+        }catch(\Exception $e)
+        {
+            return false;
+        }
     }
 }

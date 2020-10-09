@@ -1,5 +1,19 @@
 <template>
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" >
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Vehicules</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Vehicules</h1>
+			</div>
+		</div><!--/.row-->
         <div class="row"  v-if="!editMethod" >
         <div class="col-sm-10">
         <div class="panel panel-default">
@@ -10,14 +24,12 @@
                         <!-- Name input-->
                         <div class="form-group">
                             <div class="col-md-4">
-                                <input id="name" name="name" type="text" placeholder="Nom/Prenom/Email/Id" class="form-control">
+                                <input id="searchField" name="name" type="text" placeholder="Immatricule/Marque/Modele" class="form-control" v-model="searchField">
                             </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary btn-lg">Recherch</button>
-                            </div>
+                            
                             <div class="col-md-4 widget-right">
-                                <button type="button" class="btn btn-success btn-lg pull-right" id='addClient' data-toggle="modal" data-target="#CreateNewProduct">
-										<em class="fa fa-plus"></em> Cree Un Client</button>
+                                <button type="button" class="btn btn-success btn-lg pull-right" id='addVoiture' data-toggle="modal" data-target="#CreateNewProduct">
+										<em class="fa fa-plus"></em>Ajouter une Voiture</button>
                             </div>
                         </div>
                         
@@ -28,19 +40,31 @@
     </div>
 
 
-<div class="col-sm-12">
+<div class="col-sm-12" style="width: inherit" >
 				<div class="panel panel-default">
 					<div class="panel-body tabs">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tab1" data-toggle="tab">Clients Actif</a></li>
-							<li><a href="#tab2" data-toggle="tab">Clients Inactif</a></li>
+							<li :class="{active: isTabActif}" ><a href="#tab1" data-toggle="tab" @click="isTabActif = true" >Vehicules Actif</a></li>
+							<li :class="{active: !isTabActif}"><a href="#tab2" data-toggle="tab" @click="isTabActif =  false" >Vehicules Inactif</a></li>
 						</ul>
 						<div class="tab-content">
+							<div class="d-flex justify-content-center" v-if="typeof allVehiculesSearch.data != 'undefined'">
+								<pagination class="mt-5 mb-5" :data="allVehiculesSearch" @pagination-change-page="getVehiculesSearch" ></pagination>
+							</div>
+                        	<div class="d-flex justify-content-center" v-else-if="isTabActif">
+								<pagination class="mt-5 mb-5" :data="allVehiculesActif" @pagination-change-page="getVehiculesActif" ></pagination>
+							</div>
+							<div class="d-flex justify-content-center" v-else-if="!isTabActif">
+								<pagination class="mt-5 mb-5" :data="allVehicules" @pagination-change-page="getVehicules" ></pagination>
+							</div>
+
+                            <div style="color:red"  v-if="!isTabActif && vehiculesErrors">{{vehiculesErrors}}</div>
+                            <div style="color:red" v-if="isTabActif && vehiculesActifErrors">{{vehiculesActifErrors}}</div>
 							<div class="tab-pane fade in active" id="tab1">
 								<table class="table table-striped">
 								  <thead>
 								    <tr>
-								      									<th scope='col'>immatricule</th>
+								      	<th scope='col'>immatricule</th>
 										<th scope='col'>Marque</th>
 										<th scope='col'>Modele</th>
 										<th scope='col'>Nombre_Place</th>
@@ -59,9 +83,9 @@
 								  </thead>
 								  <tbody>
                                     <tr v-for="vehicule in vehicules" :key="vehicule.immatricule" >
-																			<td>{{vehicule.immatricule}}</td>
-										<td>{{vehicule.Marque}}</td>
-										<td>{{vehicule.Modele}}</td>
+										<td>{{vehicule.immatricule}}</td>
+										<td>{{vehicule.marque}}</td>
+										<td>{{vehicule.modele}}</td>
 										<td>{{vehicule.Nombre_Place}}</td>
 										<td>{{vehicule.Puissance}}</td>
 										<td>{{vehicule.Date_circulation}}</td>
@@ -92,7 +116,7 @@
             <div class="modal-content">
               <div class="modal-header">
                     <center>
-                        <h3 class="modal-title align-middle" id="exampleModalLongTitle">Créer un Client</h3>
+                        <h3 class="modal-title align-middle" id="exampleModalLongTitle">Créer une Voiture</h3>
                     </center>
               </div>
               <div class="modal-body">
@@ -117,12 +141,36 @@
 </template>
 
 <script>
+import { mapGetters, mapActions} from 'vuex';
     export default {
 		props: [
 			
-		],
+        ],
+        watch:{
+            allVehicules: function(){
+				if (!this.isTabActif)
+                	this.vehicules = this.allVehicules.data;
+            },
+            allVehiculesActif: function(){
+				if (this.isTabActif)
+               	 this.vehicules = this.allVehiculesActif.data;
+            },
+            isTabActif: async function(){
+                if(this.isTabActif)
+					this.vehicules = this.allVehiculesActif.data;
+				else
+					{	
+						if(typeof this.allVehicules.data === 'undefined')
+                        	await this.getVehicules(1);
+                         
+						this.vehicules = this.allVehicules.data;
+					}
+
+            }
+        },
         mounted() {
-            console.log('vehicule Component mounted.')
+			console.log('vehicule Component mounted.')
+			this.search();
         },
         data()
         {
@@ -131,23 +179,45 @@
 				vehicule: '',
 				editMethod: false,
                 errors: '',
+				isTabActif: true,
+				searchField: '',
             }
         }
         ,
-        created()
+         async created()
         {
-            axios.get('http://localhost:8000/api/vehicules/limit/'
-            ).then(response => 
-                this.vehicules = response.data
-            ).catch(error => this.errors = error)
+		   await this.getVehiculesActif(1);
+		   this.vehicules = this.allVehiculesActif.data;
 		}
 		,
 		methods:{
-			selectClient(vehicule){
+			selectVehicule(vehicule){
 				this.editMethod = !this.editMethod;
 				this.vehicule = vehicule;
-			}
-		}
+            },
+            search()
+			{	var searchField = $('#searchField');
+				searchField.keyup(async function() {
+					console.log(searchField.val());
+					if(searchField.val().trim().length  == 0){
+						if(this.isTabActif)
+							this.vehicules = this.allVehiculesActif.data;
+						else
+						this.vehicules = this.allVehicules.data;
+						delete this.allVehiculesSearch.data;
+						return;
+					}
+					await this.getVehiculesSearch(searchField.val(), true);
+					this.vehicules = this.allVehiculesSearch.data;
+					
+				}.bind(this));
+            },
+		  ...mapActions(['getVehicules', 'getVehiculesActif', 'getVehiculesSearch']),
+        }
+        ,
+        computed:{
+             ...mapGetters(['allVehicules', 'allVehiculesActif', 'vehiculesErrors', 'vehiculesActifErrors', 'allVehiculesSearch']),
+        }
     }
    
 </script>

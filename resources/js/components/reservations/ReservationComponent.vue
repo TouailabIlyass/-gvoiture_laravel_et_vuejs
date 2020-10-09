@@ -1,5 +1,19 @@
 <template>
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" >
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Reservations</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Reservations</h1>
+			</div>
+		</div><!--/.row-->
         <div class="row"  v-if="!editMethod" >
         <div class="col-sm-10">
         <div class="panel panel-default">
@@ -10,13 +24,10 @@
                         <!-- Name input-->
                         <div class="form-group">
                             <div class="col-md-4">
-                                <input id="name" name="name" type="text" placeholder="Num Reservation/Immatricule" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary btn-lg">Recherch</button>
+                                <input id="searchField" name="name" type="text" placeholder="Num Reservation/Immatricule" class="form-control" v-model="searchField" >
                             </div>
                             <div class="col-md-4 widget-right">
-                            <button type="button" class="btn btn-success btn-lg pull-right"  data-toggle="modal" data-target="#CreateNewProduct">
+                            <button type="button" class="btn btn-success btn-lg pull-right"  data-toggle="modal" data-target="#CreateNewReservation">
                             <em class="fa fa-plus"></em> Ajouter Reservation</button>
                             </div>
                         </div>
@@ -28,42 +39,63 @@
     </div>
 
 
-<div class="col-sm-12">
+<div class="col-sm-12" style="width: inherit" >
 				<div class="panel panel-default">
 					<div class="panel-body tabs">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tab1" data-toggle="tab">Reservation Actif</a></li>
-							<li><a href="#tab2" data-toggle="tab">Clients Inactif</a></li>
+                            <li :class="{active: isTabActif}"><a href="#tab1" data-toggle="tab" @click="isTabActif = true">Reservations Actif</a></li>
+							<li :class="{active: !isTabActif}"><a href="#tab2" data-toggle="tab" @click="isTabActif = false">Reservations</a></li>
 						</ul>
 						<div class="tab-content">
+							<div class="d-flex justify-content-center" v-if="typeof allReservationsSearch.data != 'undefined'">
+								<pagination class="mt-5 mb-5" :data="allReservationsSearch" @pagination-change-page="getReservationsSearch" ></pagination>
+							</div>
+                            <div class="d-flex justify-content-center" v-else-if="isTabActif">
+								<pagination class="mt-5 mb-5" :data="allReservationsActif" @pagination-change-page="getReservationsActif" ></pagination>
+							</div>
+							<div class="d-flex justify-content-center" v-else-if="!isTabActif">
+								<pagination class="mt-5 mb-5" :data="allReservations" @pagination-change-page="getReservations" ></pagination>
+							</div>
+							<div style="color:red" v-if="!isTabActif && reservationsErrors">{{reservationsErrors}}</div>
+							<div style="color:red" v-if="isTabActif && reservationsActifErrors">{{reservationsActifErrors}}</div>
 							<div class="tab-pane fade in active" id="tab1">
 								<table class="table table-striped">
 								  <thead>
 								    <tr>
-								      									<th scope='col'>numRes</th>
-										<th scope='col'>numPiece</th>
+								      	<th scope='col'>num reservation</th>
+										<th scope='col'>num piece</th>
 										<th scope='col'>immatricule</th>
-										<th scope='col'>Date_depart</th>
-										<th scope='col'>Lieu_depart</th>
-										<th scope='col'>Date_retour</th>
-										<th scope='col'>Lieu_retour</th>
+										<th scope='col'>Date depart</th>
+										<th scope='col'>Lieu depart</th>
+										<th scope='col'>Date retour</th>
+                                        <th scope='col'>Date retour reelle</th>
+										<th scope='col'>Lieu retour</th>
+										<th scope='col'>Carburant depart</th>
+										<th scope='col'>Carburant retour</th>
+										<th scope='col'>Km depart</th>
+										<th scope='col'>Km retour</th>
 										<th scope='col'>Montant</th>
-										<th scope='col'>Mode_paiement</th>
-										<th scope='col'>numPieceCond</th>
-										<th scope='col'>nom_banq</th>
-										<th scope='col'>num_cart</th>
+										<th scope='col'>Mode paiement</th>
+										<th scope='col'>num piece conducteur</th>
+										<th scope='col'>nom banq</th>
+										<th scope='col'>num cart</th>
 	
 								    </tr>
 								  </thead>
 								  <tbody>
                                     <tr v-for="reservation in reservations" :key="reservation.numRes" >
-																			<td>{{reservation.numRes}}</td>
+										<td>{{reservation.numRes}}</td>
 										<td>{{reservation.numPiece}}</td>
 										<td>{{reservation.immatricule}}</td>
 										<td>{{reservation.Date_depart}}</td>
 										<td>{{reservation.Lieu_depart}}</td>
 										<td>{{reservation.Date_retour}}</td>
+                                        <td>{{reservation.Date_retour_reelle}}</td>
 										<td>{{reservation.Lieu_retour}}</td>
+										<td>{{reservation.carburant_depart}}</td>
+										<td>{{reservation.carburant_retour}}</td>
+										<td>{{reservation.km_depart}}</td>
+										<td>{{reservation.km_retour}}</td>
 										<td>{{reservation.Montant}}</td>
 										<td>{{reservation.Mode_paiement}}</td>
 										<td>{{reservation.numPieceCond}}</td>
@@ -83,21 +115,21 @@
 
         <div class="row">
         <!-- Modal -->
-        <div class="modal fade" id="CreateNewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal fade" id="CreateNewReservation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document" style="width:50%" >
             <div class="modal-content">
               <div class="modal-header">
                     <center>
-                        <h3 class="modal-title align-middle" id="exampleModalLongTitle">Créer Reservation</h3>
+                        <h3 class="modal-title align-middle" id="exampleModalLongTitle">Créer une Reservation</h3>
                     </center>
               </div>
               <div class="modal-body">
 
-                <reservationForm-component></reservationForm-component>	
+                <reservationForm-component :editMethod="editMethod"></reservationForm-component>	
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id='close-model' class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -113,12 +145,35 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
     export default {
 		props: [
 			
-		],
+        ],
+        watch:{
+            allReservations: function(){
+				if(!this.isTabActif)
+					this.reservations = this.allReservations.data;
+			},
+			allReservationsActif: function(){
+				if(this.isTabActif)
+					this.reservations = this.allReservationsActif.data;
+			},
+			isTabActif: async function()
+			{
+				if(this.isTabActif)
+					this.reservations = this.allReservationsActif.data;
+				else
+					{	
+						if(typeof this.allReservations.data === 'undefined')
+							await this.getReservations(1);
+						this.reservations = this.allReservations.data;
+					}
+			}
+        },
         mounted() {
-            console.log('reservation Component mounted.')
+			console.log('reservation Component mounted.');
+			this.search();
         },
         data()
         {
@@ -127,23 +182,45 @@
 				reservation: '',
 				editMethod: false,
                 errors: '',
+				isTabActif: true,
+				searchField: '',
             }
         }
         ,
-        created()
+        async created()
         {
-            axios.get('http://localhost:8000/api/reservations/limit/'
-            ).then(response => 
-                this.reservations = response.data
-            ).catch(error => this.errors = error)
+		   await this.getReservationsActif(1);
+		   this.reservations = this.allReservationsActif.data;
 		}
 		,
 		methods:{
 			selectReservation(reservation){
 				this.editMethod = !this.editMethod;
 				this.reservation = reservation;
-			}
-		}
+            },
+            search()
+			{	var searchField = $('#searchField');
+				searchField.keyup(async function() {
+					console.log(searchField.val());
+					if(searchField.val().trim().length  == 0){
+						if(this.isTabActif)
+							this.reservations = this.allReservationsActif.data;
+						else
+						this.reservations = this.allReservations.data;
+						delete this.allReservationsSearch.data;
+						return;
+					}
+					await this.getReservationsSearch(searchField.val());
+					this.reservations = this.allReservationsSearch.data;
+					
+                }.bind(this));
+            }
+            ,...mapActions(['getReservations', 'getReservationsActif', 'getReservationsSearch']),
+        }
+        ,
+        computed:{
+             ...mapGetters(['allReservations', 'allReservationsActif', 'allReservationsSearch', 'reservationsErrors', 'reservationsActifErrors']),
+        }
     }
-   
+  
 </script>

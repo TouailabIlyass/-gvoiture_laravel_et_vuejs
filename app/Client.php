@@ -17,6 +17,8 @@ class Client extends Model
         'telephone',
         'numPermis',
         'dateDelivrPermis',
+        'dateLivrePermis',
+        'dateLivrePiece',
         'lieuDelivrPiece',
         'lieuDelivrPermis',
         'dateNaissance',
@@ -29,4 +31,5 @@ class Client extends Model
         'nationalite',
         'ville_id'
     ];
+    protected $hidden = ['created_at', 'updated_at'];
 }
