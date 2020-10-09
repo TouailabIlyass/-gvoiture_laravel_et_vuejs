@@ -59,7 +59,11 @@ const routes = [
     {
         path: '/reservation',
         component: Reservation
-    }
+    },
+    {
+        path: '/',
+        component: Reservation
+    },
     ,
     {
         path: '/contrat',

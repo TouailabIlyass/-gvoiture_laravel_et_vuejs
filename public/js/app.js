@@ -64915,6 +64915,9 @@ var routes = [{
   path: '/reservation',
   component: _components_reservations_ReservationComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
+  path: '/',
+  component: _components_reservations_ReservationComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+},, {
   path: '/contrat',
   component: _components_reservations_generationContrat_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }];
