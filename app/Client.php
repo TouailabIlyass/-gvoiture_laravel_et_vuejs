@@ -29,7 +29,7 @@ class Client extends Model
         'permisScan',
         'addresse',
         'nationalite',
-        'ville_id'
+        'ville'
     ];
     protected $hidden = ['created_at', 'updated_at'];
 }

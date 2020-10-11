@@ -8,6 +8,11 @@ use \App\Reservation;
 
 class ReservationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $reservations = Reservation::all();
@@ -97,11 +102,36 @@ class ReservationController extends Controller
         
  }
 
+    public function validateApp()
+    {
+        $mac='00-27-10-ED-FF-E0';
+        $newmac='';
+        foreach(explode("\n",str_replace(' ','',trim(`getmac`,"\n"))) as $i){
+            if(strpos($i,'Tcpip')>-1){$newmac.=substr($i,0,17).";";}
+            else if(strpos($i,'N/A')>-1){$newmac.=substr($i,0,17).";";}
+        }
+        if($newmac != '')
+        {
+            foreach(explode(';',$newmac) as $i)
+            {
+                if($i === $mac)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     //----------------------------------------Rest Controllers----------------------
     
     public function restIndex()
     {
+        if(!validateApp())
+        {
+            return '-166';
+        }
+
         try{
             $data = Reservation::orderBy('reservations.created_at','DESC')
             ->paginate(2);
@@ -127,7 +157,12 @@ class ReservationController extends Controller
     }
 
     public function restReservationActif()
-    {
+    {    
+        if(!validateApp())
+        {
+            return '-166';
+        }
+        
         try{
             $data = Reservation::orderBy('reservations.created_at','DESC')
             ->whereNull('Date_retour_reelle')

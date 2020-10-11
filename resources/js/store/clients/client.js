@@ -4,9 +4,7 @@ const state = {
     clients: {},
     clientsActif:{},
     clientsSearch:{},
-    payes:[],
     clients_errors: false,
-    payes_errors:{},
     clientsActif_errors: false,
 
 };
@@ -18,8 +16,6 @@ const getters = {
     allClientsSearch: (state) => state.clientsSearch,
     clientsErrors: (state) => state.clients_errors,
     clientsActifErrors: (state) => state.clientsActif_errors,
-    allPayes: (state) => state.payes,
-    payesErrors: (state) => state.payes_errors,
 };
 
 const actions = {
@@ -39,7 +35,7 @@ const actions = {
         } 
         if (typeof state.clients.data === 'undefined' || args.refresh == true || args.page != state.clients.current_page)
         {
-            await  axios.get('http://localhost:8000/api/clients?page='+args.page)
+            await  axios.get('/api/clients?page='+args.page)
                 .then(response => {
                     commit('setClients',response.data);
                     console.log('getdata Client');
@@ -49,7 +45,7 @@ const actions = {
     },
 
     async  getClientsActif({commit}, args = 0)
-        {    
+        {   
             if (typeof args.page === 'undefined')
             { 
                 if (args == 0)
@@ -63,7 +59,7 @@ const actions = {
             } 
             if (typeof state.clientsActif.data === 'undefined' || args.refresh == true || args.page != state.clientsActif.current_page)
             {
-                await  axios.get('http://localhost:8000/api/clients/actif/paginate?page='+args.page)
+                await  axios.get('/api/clients/actif/paginate?page='+args.page)
                     .then(response => {
                         commit('setClientsActif',response.data);
                         console.log('getdata Client Actif');
@@ -74,7 +70,7 @@ const actions = {
 
         async  getClientsSearch({commit}, keyword, page = 1)
         {   if(keyword.trim().length  == 0) return;
-                await  axios.get('http://localhost:8000/api/clients/find/'+keyword+'?page='+page)
+                await  axios.get('/api/clients/find/'+keyword+'?page='+page)
                     .then(response => {
                         commit('setClientsSearch', response.data);
                         console.log('getdata Client Search:'+keyword);
@@ -84,7 +80,7 @@ const actions = {
 
         async deleteClient({commit, dispatch}, id)
         {
-            await  axios.delete('http://localhost:8000/api/clients/'+id)
+            await  axios.delete('/api/clients/'+id)
                     .then(response => {
                         if(response.data == 1)
                         {
@@ -102,18 +98,6 @@ const actions = {
                     );
         },
 
-
-        async  getPayes({commit},refresh = false)
-        {    if (!state.clients.length || refresh == true)
-            {
-                await  axios.get('http://localhost:8000/api/payes')
-                    .then(response => {
-                        commit('setPayes',response.data);
-                        })
-                    .catch(errors => { commit('setPayesErrors',errors);});
-            }
-        },
-    
 };
 
 const mutations = {
@@ -125,9 +109,6 @@ const mutations = {
     setClientsActifErrors:(state,errors) =>(state.clientsActif_errors = errors),
 
     setClientsSearch:(state, clients) => (state.clientsSearch = clients),
-
-    setPayes:(state, payes) => (state.payes = payes),
-    setPayesErrors:(state,errors) =>(state.payes_errors = errors),
   
 };
 

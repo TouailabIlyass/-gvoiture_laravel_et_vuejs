@@ -9,7 +9,6 @@ const state = {
     reservation_errors:'',
     reservationsActif_errors:'',
     generateContrat: false,
-
 };
 
 const getters = {
@@ -45,7 +44,7 @@ const actions = {
             }  
             if (typeof state.reservations.data === 'undefined' || args.refresh == true || args.page != state.reservations.current_page )
             {
-                await  axios.get('http://localhost:8000/api/reservations?page='+args.page)
+                await  axios.get('/api/reservations?page='+args.page)
                     .then(response => {
                         commit('setReservations',response.data);
                         console.log('getdata Reservations');
@@ -79,7 +78,7 @@ const actions = {
 
         async  getReservationsSearch({commit}, keyword, page = 1)
         {    if(keyword.trim().length  == 0) return;
-                await  axios.get('http://localhost:8000/api/reservations/find/'+keyword+'?page='+page)
+                await  axios.get('/api/reservations/find/'+keyword+'?page='+page)
                     .then(response => {
                         commit('setReservationsSearch',response.data);
                         console.log('getdata Search Reservations: '+keyword);
@@ -90,7 +89,7 @@ const actions = {
         async deleteReservation({commit,dispatch}, id)
         {
             console.log(id);
-            await  axios.delete('http://localhost:8000/api/reservations/'+id)
+            await  axios.delete('/api/reservations/'+id)
                     .then(response => {
                         if(response.data == 1)
                         {
@@ -122,7 +121,7 @@ const actions = {
         async  addProlongations({commit, dispatch}, keyword)
         {       
                 $.ajax({
-                    url: 'http://localhost:8000/api/prolongations',
+                    url: '/api/prolongations',
                     type: 'post',
                     datatype: 'json',
                     data : $("#formProlongation").serialize(),
@@ -145,7 +144,7 @@ const actions = {
 
         async  getProlongations({state, commit}, keyword)
         {    
-            await  axios.get('http://localhost:8000/api/prolongations/find/'+keyword)
+            await  axios.get('/api/prolongations/find/'+keyword)
                 .then(response => {
                     for(var i= 0; i < state.reservationsActif.data.length ; i++)
                     {
@@ -160,12 +159,37 @@ const actions = {
         },
 
         async  deleteProlongations({state, commit, dispatch}, {prolongation,keyword}){
-            await  axios.delete('http://localhost:8000/api/prolongations/'+ prolongation)
+            await  axios.delete('/api/prolongations/'+ prolongation)
                 .then(response => {
                     dispatch('getProlongations', keyword);
                 })
                  .catch(error => {});
               },
+        
+        validateApp({state}, key)
+        {   //10 6 12 22
+            var split_key = key.split('-');
+            if(split_key.length == 4)
+            {  var date = new Date();
+                var dm,da,dh,di;
+                dm = split_key[0][split_key[0].length-2]+split_key[0][split_key[0].length-1];
+                da = split_key[1][split_key[1].length-2];
+                dh = split_key[2][split_key[2].length-2]+split_key[2][split_key[2].length-1];
+                di = split_key[3][split_key[3].length-2]+split_key[3][split_key[3].length-1];
+                console.log('dm='+dm);
+                console.log('da='+da);
+                console.log('dh='+dh);
+                console.log('di='+di);
+                if(dm == date.getDate() && da == date.getDay() && dh == date.getHours())
+                {
+                    if( di >= date.getMinutes()-3 &&  di <= date.getMinutes()+3 )
+                    {
+                        console.log('if222');
+                    }
+                    console.log('if11');
+                }
+            }
+        }
     
 };
 

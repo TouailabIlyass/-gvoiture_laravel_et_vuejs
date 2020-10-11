@@ -453,7 +453,7 @@ import { mapGetters, mapActions } from 'vuex';
         ...mapActions(['getMarques', 'getModelsByMarques', 'addReservationST', 'getReservations', 'getReservationsActif', 'deleteReservation']),
         addReservation()
         {   
-            var url = 'http://localhost:8000/api/reservations/';
+            var url = '/api/reservations/';
             if(this.editMethod) {url+=this.reservation.numRes;}
             $.ajax({
                 url: url,

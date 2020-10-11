@@ -34,7 +34,7 @@ const actions = {
                 }
             } 
             if (typeof state.vehicules.data === 'undefined'|| args.refresh == true || args.page != state.vehicules.current_page){
-            await  axios.get('http://localhost:8000/api/vehicules?page='+args.page)
+            await  axios.get('/api/vehicules?page='+args.page)
                 .then(response => {
                        commit('setVehicules',response.data);
                        console.log('getdata vehicules');
@@ -70,7 +70,7 @@ const actions = {
 
         async  getVehiculesSearch({commit}, keyword, page = 1)
         {   if(keyword.trim().length  == 0) return;
-                await  axios.get('http://localhost:8000/api/vehicules/find/'+keyword+'?page='+page)
+                await  axios.get('/api/vehicules/find/'+keyword+'?page='+page)
                 .then(response => {
                        commit('setVehiculesSearch',response.data);
                        console.log('vehicules search:'+keyword);
@@ -80,7 +80,7 @@ const actions = {
 
         async deleteVehicule({commit, dispatch}, id)
         {
-            await  axios.delete('http://localhost:8000/api/vehicules/'+id)
+            await  axios.delete('/api/vehicules/'+id)
                     .then(response => {
                         if(response.data == 1)
                         {

@@ -2343,11 +2343,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -2356,22 +2352,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2614,7 +2594,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         dateDelivrPermis: '',
         nationalite: '',
         addresse: '',
-        ville_id: '',
+        ville: '',
         lieuDelivrPiece: '',
         lieuDelivrPermis: '',
         dateLivrePermis: '',
@@ -2629,28 +2609,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: ''
     };
   },
-  created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _this.getPayes();
-
-            case 2:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  },
+  created: function created() {},
   methods: _objectSpread({
     addClient: function addClient() {
-      var url = 'http://localhost:8000/api/clients/';
+      var url = '/api/clients/';
       var type = 'ajoutee!';
       var form = $("#form")[0];
       var formData = new FormData(form);
@@ -2704,8 +2666,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     onSubmit: function onSubmit() {}
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getPayes', 'getClients', 'getClientsActif', 'deleteClient'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['allPayes']))
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getClients', 'getClientsActif', 'deleteClient'])),
+  computed: {}
 });
 
 /***/ }),
@@ -2734,6 +2696,46 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2943,7 +2945,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editMethod: false,
       errors: '',
       isTabActif: true,
-      searchField: ''
+      searchField: '',
+      valide: true,
+      serial: ''
     };
   },
   created: function created() {
@@ -2958,9 +2962,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this.getReservationsActif(1);
 
             case 2:
-              _this.reservations = _this.allReservationsActif.data;
+              _this.reservations = _this.allReservationsActif.data; ///////////
 
-            case 3:
+              _this.validateApp('123ddhdgfe4-11132-2278-3361'); ////////////////
+
+
+            case 4:
             case "end":
               return _context2.stop();
           }
@@ -3006,7 +3013,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, this);
       })).bind(this));
     }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getReservations', 'getReservationsActif', 'getReservationsSearch'])),
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getReservations', 'getReservationsActif', 'getReservationsSearch', 'validateApp'])),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['allReservations', 'allReservationsActif', 'allReservationsSearch', 'reservationsErrors', 'reservationsActifErrors']))
 });
 
@@ -3204,11 +3211,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
   data: function data() {
     return {};
+  },
+  created: function created() {
+    this.setGenerateContrat(true);
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['ReservationFromStore'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['setGenerateContrat', 'getReservations', 'getReservationsActif', 'getClients', 'getClientsActif', 'getVehicules', 'getVehiculesActif'])), {}, {
@@ -3224,7 +3246,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.addReservation();
     },
     addReservation: function addReservation() {
-      var url = 'http://localhost:8000/api/reservations/';
+      var url = '/api/reservations/';
       var form = this.ReservationFromStore.form;
 
       if (this.ReservationFromStore.editMethod) {
@@ -3882,7 +3904,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getMarques', 'getModelsByMarques', 'addReservationST', 'getReservations', 'getReservationsActif', 'deleteReservation'])), {}, {
     addReservation: function addReservation() {
-      var url = 'http://localhost:8000/api/reservations/';
+      var url = '/api/reservations/';
 
       if (this.editMethod) {
         url += this.reservation.numRes;
@@ -4574,7 +4596,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {},
   methods: _objectSpread({
     addVehicule: function addVehicule() {
-      var url = 'http://localhost:8000/api/vehicules/';
+      var url = '/api/vehicules/';
       var type = 'ajoutee!';
 
       if (this.editMethod) {
@@ -9053,7 +9075,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbody{\r\n    background-color: #fff;\n}\nspan{\r\n    color: #000;\n}\n.infos > p , .infos > h5 , .infos > div.row\r\n        {\r\n            border-bottom: 1px solid #000;\n}\n.infos > div.row , .infos > div.row > div[class^=\"col\"]{\r\n            padding: 0;\r\n            margin: 0;\n}\r\n       \r\n", ""]);
+exports.push([module.i, "\nbody{\r\n    background-color: #fff;\n}\np{\r\n    padding-bottom:3px\n}\nspan{\r\n    color: #000;\n}\n.infos > p , .infos > h5 , .infos > div.row\r\n        {\r\n            border-bottom: 1px solid #000;\n}\n.infos > div.row , .infos > div.row > div[class^=\"col\"]{\r\n            padding: 0;\r\n            margin: 0;\n}\ndiv > span:first-child , p > span:first-child{\r\n    color:#777\n}\r\n", ""]);
 
 // exports
 
@@ -42682,21 +42704,23 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    _vm._v(_vm._s(client.vdeliverpermis))
+                                    _vm._v(_vm._s(client.lieuDelivrPermis))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(client.dateNaissance))
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(client.vnaiss))]),
+                                  _c("td", [
+                                    _vm._v(_vm._s(client.lieuNaissance))
+                                  ]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(client.dateDelivrPermis))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    _vm._v(_vm._s(client.vdeliverpiece))
+                                    _vm._v(_vm._s(client.lieuDelivrPiece))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
@@ -42711,7 +42735,9 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(client.permisScan))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(client.paye))]),
+                                  _c("td", [
+                                    _vm._v(_vm._s(client.nationalite))
+                                  ]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(client.addresse))]),
                                   _vm._v(" "),
@@ -43489,48 +43515,35 @@ var render = function() {
                   [_vm._v("lieu Delivr Piece")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.client.lieuDelivrPiece,
-                        expression: "client.lieuDelivrPiece"
-                      }
-                    ],
-                    staticClass: "form-control text-center",
-                    attrs: { name: "lieuDelivrPiece", id: "lieuDelivrPiece" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.client,
-                          "lieuDelivrPiece",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.client.lieuDelivrPiece,
+                      expression: "client.lieuDelivrPiece"
                     }
+                  ],
+                  staticClass: "form-control text-center",
+                  attrs: {
+                    type: "text",
+                    name: "lieuDelivrPiece",
+                    id: "lieuDelivrPiece"
                   },
-                  _vm._l(_vm.allPayes.villes, function(ville) {
-                    return _c(
-                      "option",
-                      { key: ville.id, domProps: { value: ville.id } },
-                      [_vm._v(_vm._s(ville.ville))]
-                    )
-                  }),
-                  0
-                ),
+                  domProps: { value: _vm.client.lieuDelivrPiece },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.client,
+                        "lieuDelivrPiece",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _vm.errors
                   ? _c("p", { staticStyle: { color: "red" } }, [
@@ -43551,48 +43564,35 @@ var render = function() {
                   [_vm._v("lieu Delivr Permis")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.client.lieuDelivrPermis,
-                        expression: "client.lieuDelivrPermis"
-                      }
-                    ],
-                    staticClass: "form-control text-center",
-                    attrs: { name: "lieuDelivrPermis", id: "lieuDelivrPermis" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.client,
-                          "lieuDelivrPermis",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.client.lieuDelivrPermis,
+                      expression: "client.lieuDelivrPermis"
                     }
+                  ],
+                  staticClass: "form-control text-center",
+                  attrs: {
+                    type: "text",
+                    name: "lieuDelivrPermis",
+                    id: "lieuDelivrPermis"
                   },
-                  _vm._l(_vm.allPayes.villes, function(ville) {
-                    return _c(
-                      "option",
-                      { key: ville.id, domProps: { value: ville.id } },
-                      [_vm._v(_vm._s(ville.ville))]
-                    )
-                  }),
-                  0
-                ),
+                  domProps: { value: _vm.client.lieuDelivrPermis },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.client,
+                        "lieuDelivrPermis",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _vm.errors
                   ? _c("p", { staticStyle: { color: "red" } }, [
@@ -43660,48 +43660,31 @@ var render = function() {
                   [_vm._v("lieu Naissance")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.client.lieuNaissance,
-                        expression: "client.lieuNaissance"
-                      }
-                    ],
-                    staticClass: "form-control text-center",
-                    attrs: { name: "lieuNaissance", id: "lieuNaissance" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.client,
-                          "lieuNaissance",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.client.lieuNaissance,
+                      expression: "client.lieuNaissance"
                     }
+                  ],
+                  staticClass: "form-control text-center",
+                  attrs: {
+                    type: "text",
+                    name: "lieuNaissance",
+                    id: "lieuNaissance"
                   },
-                  _vm._l(_vm.allPayes.villes, function(ville) {
-                    return _c(
-                      "option",
-                      { key: ville.id, domProps: { value: ville.id } },
-                      [_vm._v(_vm._s(ville.ville))]
-                    )
-                  }),
-                  0
-                ),
+                  domProps: { value: _vm.client.lieuNaissance },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.client, "lieuNaissance", $event.target.value)
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _vm.errors
                   ? _c("p", { staticStyle: { color: "red" } }, [
@@ -43917,21 +43900,31 @@ var render = function() {
                   [_vm._v("nationalite")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-control text-center",
-                    attrs: { name: "nationalite", id: "payes" }
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.client.nationalite,
+                      expression: "client.nationalite"
+                    }
+                  ],
+                  staticClass: "form-control text-center",
+                  attrs: {
+                    type: "text",
+                    name: "nationalite",
+                    id: "nationalite"
                   },
-                  _vm._l(_vm.allPayes.payes, function(paye) {
-                    return _c(
-                      "option",
-                      { key: paye.id, domProps: { value: paye.id } },
-                      [_vm._v(_vm._s(paye.paye))]
-                    )
-                  }),
-                  0
-                ),
+                  domProps: { value: _vm.client.nationalite },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.client, "nationalite", $event.target.value)
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _vm.errors
                   ? _c("p", [_vm._v(_vm._s(_vm.errors.nationalite))])
@@ -43945,26 +43938,32 @@ var render = function() {
                   "label",
                   {
                     staticClass: "col-sm-10 col-form-label text-center",
-                    attrs: { for: "ville_id" }
+                    attrs: { for: "ville" }
                   },
                   [_vm._v("ville")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-control text-center",
-                    attrs: { name: "ville_id", id: "villes" }
-                  },
-                  _vm._l(_vm.allPayes.villes, function(ville) {
-                    return _c(
-                      "option",
-                      { key: ville.id, domProps: { value: ville.id } },
-                      [_vm._v(_vm._s(ville.ville))]
-                    )
-                  }),
-                  0
-                ),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.client.ville,
+                      expression: "client.ville"
+                    }
+                  ],
+                  staticClass: "form-control text-center",
+                  attrs: { type: "text", name: "ville", id: "ville" },
+                  domProps: { value: _vm.client.ville },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.client, "ville", $event.target.value)
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _vm.errors
                   ? _c("p", [_vm._v(_vm._s(_vm.errors.ville))])
@@ -44052,55 +44051,62 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" },
-    [
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      !_vm.editMethod
-        ? _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c("div", { staticClass: "panel panel-default" }, [
-                _c("div", { staticClass: "panel-body" }, [
+  return _c("div", [
+    !_vm.valide
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"
+          },
+          [
+            _c("div", { staticClass: "container" }, [
+              _c("div", { staticClass: "row justify-content-center" }, [
+                _c("div", { staticClass: "col-md-8" }, [
                   _c(
-                    "form",
+                    "div",
                     {
-                      staticClass: "form-horizontal",
-                      attrs: { action: "", method: "post" }
+                      staticClass: "card",
+                      staticStyle: { "margin-top": "10%", "margin-left": "16%" }
                     },
                     [
-                      _c("fieldset", [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.searchField,
-                                  expression: "searchField"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                id: "searchField",
-                                name: "name",
-                                type: "text",
-                                placeholder: "Num Reservation/Immatricule"
-                              },
-                              domProps: { value: _vm.searchField },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("form", [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.serial,
+                                    expression: "serial"
                                   }
-                                  _vm.searchField = $event.target.value
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  id: "serial",
+                                  type: "text",
+                                  placeholder: "number ID",
+                                  name: "serial",
+                                  required: "",
+                                  autofocus: ""
+                                },
+                                domProps: { value: _vm.serial },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.serial = $event.target.value
+                                  }
                                 }
-                              }
-                            })
+                              }),
+                              _vm._v(" "),
+                              _vm._m(1)
+                            ])
                           ]),
                           _vm._v(" "),
                           _vm._m(2)
@@ -44110,302 +44116,481 @@ var render = function() {
                   )
                 ])
               ])
-            ]),
+            ])
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.valide
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"
+          },
+          [
+            _vm._m(3),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-sm-12", staticStyle: { width: "inherit" } },
-              [
-                _c("div", { staticClass: "panel panel-default" }, [
-                  _c("div", { staticClass: "panel-body tabs" }, [
-                    _c("ul", { staticClass: "nav nav-tabs" }, [
-                      _c("li", { class: { active: _vm.isTabActif } }, [
+            _vm._m(4),
+            _vm._v(" "),
+            !_vm.editMethod
+              ? _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c("div", { staticClass: "panel panel-default" }, [
+                      _c("div", { staticClass: "panel-body" }, [
                         _c(
-                          "a",
+                          "form",
                           {
-                            attrs: { href: "#tab1", "data-toggle": "tab" },
-                            on: {
-                              click: function($event) {
-                                _vm.isTabActif = true
-                              }
-                            }
+                            staticClass: "form-horizontal",
+                            attrs: { action: "", method: "post" }
                           },
-                          [_vm._v("Reservations Actif")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { class: { active: !_vm.isTabActif } }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#tab2", "data-toggle": "tab" },
-                            on: {
-                              click: function($event) {
-                                _vm.isTabActif = false
-                              }
-                            }
-                          },
-                          [_vm._v("Reservations")]
+                          [
+                            _c("fieldset", [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("div", { staticClass: "col-md-4" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.searchField,
+                                        expression: "searchField"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      id: "searchField",
+                                      name: "name",
+                                      type: "text",
+                                      placeholder: "Num Reservation/Immatricule"
+                                    },
+                                    domProps: { value: _vm.searchField },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.searchField = $event.target.value
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(5)
+                              ])
+                            ])
+                          ]
                         )
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "tab-content" }, [
-                      typeof _vm.allReservationsSearch.data != "undefined"
-                        ? _c(
-                            "div",
-                            { staticClass: "d-flex justify-content-center" },
-                            [
-                              _c("pagination", {
-                                staticClass: "mt-5 mb-5",
-                                attrs: { data: _vm.allReservationsSearch },
-                                on: {
-                                  "pagination-change-page":
-                                    _vm.getReservationsSearch
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm.isTabActif
-                        ? _c(
-                            "div",
-                            { staticClass: "d-flex justify-content-center" },
-                            [
-                              _c("pagination", {
-                                staticClass: "mt-5 mb-5",
-                                attrs: { data: _vm.allReservationsActif },
-                                on: {
-                                  "pagination-change-page":
-                                    _vm.getReservationsActif
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : !_vm.isTabActif
-                        ? _c(
-                            "div",
-                            { staticClass: "d-flex justify-content-center" },
-                            [
-                              _c("pagination", {
-                                staticClass: "mt-5 mb-5",
-                                attrs: { data: _vm.allReservations },
-                                on: {
-                                  "pagination-change-page": _vm.getReservations
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      !_vm.isTabActif && _vm.reservationsErrors
-                        ? _c("div", { staticStyle: { color: "red" } }, [
-                            _vm._v(_vm._s(_vm.reservationsErrors))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.isTabActif && _vm.reservationsActifErrors
-                        ? _c("div", { staticStyle: { color: "red" } }, [
-                            _vm._v(_vm._s(_vm.reservationsActifErrors))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "tab-pane fade in active",
-                          attrs: { id: "tab1" }
-                        },
-                        [
-                          _c("table", { staticClass: "table table-striped" }, [
-                            _vm._m(3),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              _vm._l(_vm.reservations, function(reservation) {
-                                return _c("tr", { key: reservation.numRes }, [
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.numRes))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.numPiece))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.immatricule))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.Date_depart))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.Lieu_depart))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.Date_retour))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(reservation.Date_retour_reelle)
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.Lieu_retour))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.carburant_depart))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.carburant_retour))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.km_depart))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.km_retour))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.Montant))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.Mode_paiement))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.numPieceCond))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.nom_banq))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(reservation.num_cart))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-primary",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.selectReservation(
-                                              reservation
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("em", {
-                                          staticClass: "fa fa-file-o"
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                ])
-                              }),
-                              0
-                            )
-                          ])
-                        ]
-                      )
                     ])
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "modal fade",
-                  attrs: {
-                    id: "CreateNewReservation",
-                    tabindex: "-1",
-                    role: "dialog",
-                    "aria-labelledby": "exampleModalCenterTitle",
-                    "aria-hidden": "true"
-                  }
-                },
-                [
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "div",
                     {
-                      staticClass: "modal-dialog modal-dialog-centered",
-                      staticStyle: { width: "50%" },
-                      attrs: { role: "document" }
+                      staticClass: "col-sm-12",
+                      staticStyle: { width: "inherit" }
                     },
                     [
-                      _c("div", { staticClass: "modal-content" }, [
-                        _c(
-                          "div",
-                          { staticClass: "modal-header" },
-                          [
-                            _c("center", [
+                      _c("div", { staticClass: "panel panel-default" }, [
+                        _c("div", { staticClass: "panel-body tabs" }, [
+                          _c("ul", { staticClass: "nav nav-tabs" }, [
+                            _c("li", { class: { active: _vm.isTabActif } }, [
                               _c(
-                                "h3",
+                                "a",
                                 {
-                                  staticClass: "modal-title align-middle",
-                                  attrs: { id: "exampleModalLongTitle" }
+                                  attrs: {
+                                    href: "#tab1",
+                                    "data-toggle": "tab"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.isTabActif = true
+                                    }
+                                  }
                                 },
-                                [_vm._v("Créer une Reservation")]
+                                [_vm._v("Reservations Actif")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", { class: { active: !_vm.isTabActif } }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: "#tab2",
+                                    "data-toggle": "tab"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.isTabActif = false
+                                    }
+                                  }
+                                },
+                                [_vm._v("Reservations")]
                               )
                             ])
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "modal-body" },
-                          [
-                            _c("reservationForm-component", {
-                              attrs: { editMethod: _vm.editMethod }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _vm._m(4)
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "tab-content" }, [
+                            typeof _vm.allReservationsSearch.data != "undefined"
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "d-flex justify-content-center"
+                                  },
+                                  [
+                                    _c("pagination", {
+                                      staticClass: "mt-5 mb-5",
+                                      attrs: {
+                                        data: _vm.allReservationsSearch
+                                      },
+                                      on: {
+                                        "pagination-change-page":
+                                          _vm.getReservationsSearch
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _vm.isTabActif
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "d-flex justify-content-center"
+                                  },
+                                  [
+                                    _c("pagination", {
+                                      staticClass: "mt-5 mb-5",
+                                      attrs: { data: _vm.allReservationsActif },
+                                      on: {
+                                        "pagination-change-page":
+                                          _vm.getReservationsActif
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : !_vm.isTabActif
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "d-flex justify-content-center"
+                                  },
+                                  [
+                                    _c("pagination", {
+                                      staticClass: "mt-5 mb-5",
+                                      attrs: { data: _vm.allReservations },
+                                      on: {
+                                        "pagination-change-page":
+                                          _vm.getReservations
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.isTabActif && _vm.reservationsErrors
+                              ? _c("div", { staticStyle: { color: "red" } }, [
+                                  _vm._v(_vm._s(_vm.reservationsErrors))
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.isTabActif && _vm.reservationsActifErrors
+                              ? _c("div", { staticStyle: { color: "red" } }, [
+                                  _vm._v(_vm._s(_vm.reservationsActifErrors))
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "tab-pane fade in active",
+                                attrs: { id: "tab1" }
+                              },
+                              [
+                                _c(
+                                  "table",
+                                  { staticClass: "table table-striped" },
+                                  [
+                                    _vm._m(6),
+                                    _vm._v(" "),
+                                    _c(
+                                      "tbody",
+                                      _vm._l(_vm.reservations, function(
+                                        reservation
+                                      ) {
+                                        return _c(
+                                          "tr",
+                                          { key: reservation.numRes },
+                                          [
+                                            _c("td", [
+                                              _vm._v(_vm._s(reservation.numRes))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.numPiece)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.immatricule)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.Date_depart)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.Lieu_depart)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.Date_retour)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  reservation.Date_retour_reelle
+                                                )
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.Lieu_retour)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  reservation.carburant_depart
+                                                )
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  reservation.carburant_retour
+                                                )
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.km_depart)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.km_retour)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.Montant)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  reservation.Mode_paiement
+                                                )
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.numPieceCond)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.nom_banq)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(reservation.num_cart)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-primary",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.selectReservation(
+                                                        reservation
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("em", {
+                                                    staticClass: "fa fa-file-o"
+                                                  })
+                                                ]
+                                              )
+                                            ])
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ])
                       ])
                     ]
-                  )
-                ]
-              )
-            ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.editMethod
-        ? _c("reservationEdit-component", {
-            attrs: { reservation: _vm.reservation, editMethod: _vm.editMethod },
-            on: {
-              toggleEdit: function($event) {
-                _vm.editMethod = !_vm.editMethod
-              }
-            }
-          })
-        : _vm._e()
-    ],
-    1
-  )
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal fade",
+                        attrs: {
+                          id: "CreateNewReservation",
+                          tabindex: "-1",
+                          role: "dialog",
+                          "aria-labelledby": "exampleModalCenterTitle",
+                          "aria-hidden": "true"
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "modal-dialog modal-dialog-centered",
+                            staticStyle: { width: "50%" },
+                            attrs: { role: "document" }
+                          },
+                          [
+                            _c("div", { staticClass: "modal-content" }, [
+                              _c(
+                                "div",
+                                { staticClass: "modal-header" },
+                                [
+                                  _c("center", [
+                                    _c(
+                                      "h3",
+                                      {
+                                        staticClass: "modal-title align-middle",
+                                        attrs: { id: "exampleModalLongTitle" }
+                                      },
+                                      [_vm._v("Créer une Reservation")]
+                                    )
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "modal-body" },
+                                [
+                                  _c("reservationForm-component", {
+                                    attrs: { editMethod: _vm.editMethod }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._m(7)
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.editMethod
+              ? _c("reservationEdit-component", {
+                  attrs: {
+                    reservation: _vm.reservation,
+                    editMethod: _vm.editMethod
+                  },
+                  on: {
+                    toggleEdit: function($event) {
+                      _vm.editMethod = !_vm.editMethod
+                    }
+                  }
+                })
+              : _vm._e()
+          ],
+          1
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("p", [_vm._v("Veuillez Contacter Administrateur:")]),
+      _vm._v(" "),
+      _c("p", { staticStyle: { "text-decoration": "underline" } }, [
+        _vm._v("tel: +212 06 29 49 65 77")
+      ]),
+      _vm._v(" "),
+      _c("p", { staticStyle: { "text-decoration": "underline" } }, [
+        _vm._v("Mail: ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      { staticClass: "invalid-feedback", attrs: { role: "alert" } },
+      [_c("strong")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row mb-0" }, [
+      _c("div", { staticClass: "col-md-8 offset-md-4" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("Submit")]
+        )
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -44563,202 +44748,147 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "header col align-self-center" }, [
-          _c("h3", { staticStyle: { "text-align": "center" } }, [
-            _vm._v("CONTRACT DE LOCATION "),
-            _c("span", [_vm._v("N: ")]),
-            _c("span", [_vm._v(_vm._s(_vm.ReservationFromStore.numRes))])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "infos" }, [
-          _c("h5", [_vm._v("INFORMATION CLIENT")]),
-          _vm._v(" "),
-          _c("p", [
-            _c("span", [_vm._v("Nom & Prenom:")]),
-            _c("span", [
-              _vm._v(
-                "      " +
-                  _vm._s(
-                    _vm.ReservationFromStore.client.nom +
-                      " " +
-                      _vm.ReservationFromStore.client.prenom
-                  )
-              )
+      _c(
+        "div",
+        { staticClass: "container", staticStyle: { border: "1px solid #000" } },
+        [
+          _c("div", { staticClass: "header col align-self-center" }, [
+            _c("h3", { staticStyle: { "text-align": "center" } }, [
+              _vm._v("CONTRACT DE LOCATION "),
+              _c("span", [_vm._v("N: ")]),
+              _c("span", [_vm._v(_vm._s(_vm.ReservationFromStore.numRes))])
             ])
           ]),
           _vm._v(" "),
-          _c("p", [
-            _c("span", [_vm._v("Date et lieu de naissance:")]),
-            _c("span", [
-              _vm._v(
-                "      " +
-                  _vm._s(
-                    _vm.ReservationFromStore.client.dateNaissance +
-                      " " +
-                      _vm.ReservationFromStore.client.lieuNaissance
-                  )
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _vm.ReservationFromStore.pieceIdentite === "cin"
-            ? _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-                  _c("span", [_vm._v("N de C.I.N:")]),
-                  _vm._v("      "),
-                  _c("span", [
-                    _vm._v(_vm._s(_vm.ReservationFromStore.client.numPiece))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6 col-xs-4" }, [
-                  _c("span", [_vm._v("Valable jusqu'au:")]),
-                  _c("span", [
-                    _vm._v(
-                      "      " +
-                        _vm._s(_vm.ReservationFromStore.client.dateDelivrPiece)
-                    )
-                  ])
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.ReservationFromStore.pieceIdentite === "passport"
-            ? _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-                  _c("span", [_vm._v("N de Passport:")]),
-                  _c("span", [
-                    _vm._v(
-                      "      " +
-                        _vm._s(_vm.ReservationFromStore.client.numPiece)
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-                  _c("span", [_vm._v("Delivre le:")]),
-                  _vm._v(
-                    "      " +
-                      _vm._s(_vm.ReservationFromStore.client.dateDelivrPiece)
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-                  _c("span", [_vm._v("a:")]),
-                  _vm._v(
-                    "      " +
-                      _vm._s(_vm.ReservationFromStore.client.lieuDelivrPiece)
-                  )
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("N de permis:")]),
+          _c("div", { staticClass: "infos" }, [
+            _c("h5", [_vm._v("INFORMATION CLIENT")]),
+            _vm._v(" "),
+            _c("p", [
+              _c("span", [_vm._v("Nom & Prenom:")]),
               _c("span", [
                 _vm._v(
-                  "      " + _vm._s(_vm.ReservationFromStore.client.numPermis)
+                  "      " +
+                    _vm._s(
+                      _vm.ReservationFromStore.client.nom +
+                        " " +
+                        _vm.ReservationFromStore.client.prenom
+                    )
                 )
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Delivre le:")]),
+            _c("p", [
+              _c("span", [_vm._v("Date et lieu de naissance:")]),
               _c("span", [
                 _vm._v(
                   "      " +
-                    _vm._s(_vm.ReservationFromStore.client.dateDelivrPermis)
+                    _vm._s(
+                      _vm.ReservationFromStore.client.dateNaissance +
+                        " " +
+                        _vm.ReservationFromStore.client.lieuNaissance
+                    )
                 )
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("a:")]),
-              _c("span", [
-                _vm._v(
-                  "      " +
-                    _vm._s(_vm.ReservationFromStore.client.lieuDelivrPermis)
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _c("span", [_vm._v("Adresse:")]),
-            _c("span", [
-              _vm._v(
-                "      " + _vm._s(_vm.ReservationFromStore.client.addresse)
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "infos" }, [
-          _c("h5", [_vm._v("INFORMATION CONDUCTEUR")]),
-          _vm._v(" "),
-          _c("p", [
-            _c("span", [_vm._v("Nom & Prenom:")]),
-            _c("span", [
-              _vm._v(
-                "      " +
-                  _vm._s(_vm.ReservationFromStore.conducteur.nom) +
-                  "   " +
-                  _vm._s(_vm.ReservationFromStore.conducteur.prenom)
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _c("span", [_vm._v("Date et lieu de naissance:")]),
-            _c("span", [
-              _vm._v(
-                "      " +
-                  _vm._s(_vm.ReservationFromStore.conducteur.dateNaissance) +
-                  "   " +
-                  _vm._s(_vm.ReservationFromStore.conducteur.lieuNaissance)
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _vm.ReservationFromStore.conducteur.numPiece === "cin"
-            ? _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-                  _c("span", [_vm._v("N de C.I.N:")]),
-                  _c("span", [
-                    _vm._v(
-                      "      " +
-                        _vm._s(_vm.ReservationFromStore.conducteur.numPiece)
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-                  _c("span", [_vm._v("Valable jusqu'au:")]),
-                  _c("span", [
-                    _vm._v(
-                      "      " +
-                        _vm._s(
-                          _vm.ReservationFromStore.conducteur.dateDelivrPiece
+            _vm.ReservationFromStore.client.pieceIdentite === "cin"
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "row",
+                    staticStyle: { "padding-bottom": "4px" }
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("N de C.I.N:")]),
+                      _vm._v("      "),
+                      _c("span", [
+                        _vm._v(_vm._s(_vm.ReservationFromStore.client.numPiece))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("Valable jusqu'au:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(
+                              _vm.ReservationFromStore.client.dateDelivrPiece
+                            )
                         )
-                    )
-                  ])
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.ReservationFromStore.conducteur.numPiece === "passport"
-            ? _c("div", { staticClass: "row" }, [
+                      ])
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.ReservationFromStore.client.pieceIdentite === "passport"
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "row",
+                    staticStyle: { "padding-bottom": "4px" }
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("N de Passport:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(_vm.ReservationFromStore.client.numPiece)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("Delivre le:")]),
+                      _vm._v(
+                        "      " +
+                          _vm._s(
+                            _vm.ReservationFromStore.client.dateDelivrPiece
+                          )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("a:")]),
+                      _vm._v(
+                        "      " +
+                          _vm._s(
+                            _vm.ReservationFromStore.client.lieuDelivrPiece
+                          )
+                      )
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "4px 0" } },
+              [
                 _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-                  _c("span", [_vm._v("N de Passport:")]),
+                  _c("span", [_vm._v("N d'entree:")]),
                   _c("span", [
                     _vm._v(
                       "      " +
-                        _vm._s(_vm.ReservationFromStore.conducteur.numPiece)
+                        _vm._s(_vm.ReservationFromStore.conducteur.numPermis)
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "4px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("N de permis:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(_vm.ReservationFromStore.client.numPermis)
                     )
                   ])
                 ]),
@@ -44768,9 +44898,7 @@ var render = function() {
                   _c("span", [
                     _vm._v(
                       "      " +
-                        _vm._s(
-                          _vm.ReservationFromStore.conducteur.dateDelivrPiece
-                        )
+                        _vm._s(_vm.ReservationFromStore.client.dateDelivrPermis)
                     )
                   ])
                 ]),
@@ -44780,209 +44908,422 @@ var render = function() {
                   _c("span", [
                     _vm._v(
                       "      " +
-                        _vm._s(
-                          _vm.ReservationFromStore.conducteur.lieuDelivrPiece
-                        )
+                        _vm._s(_vm.ReservationFromStore.client.lieuDelivrPermis)
                     )
                   ])
                 ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("p", [
-            _c("span", [_vm._v("N d'entree:")]),
-            _c("span", [
-              _vm._v(
-                "      " + _vm._s(_vm.ReservationFromStore.conducteur.numPermis)
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("N de permis:")]),
-              _c("span", [
-                _vm._v(
-                  "      " +
-                    _vm._s(_vm.ReservationFromStore.conducteur.numPermis)
-                )
-              ])
-            ]),
+              ]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Delivre le:")]),
-              _c("span", [
-                _vm._v(
-                  "      " +
-                    _vm._s(_vm.ReservationFromStore.conducteur.dateDelivrPermis)
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("a:")]),
-              _c("span", [
-                _vm._v(
-                  "      " +
-                    _vm._s(_vm.ReservationFromStore.conducteur.lieuDelivrPermis)
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _c("span", [_vm._v("Adresse:")]),
-            _c("span", [
-              _vm._v(
-                "      " + _vm._s(_vm.ReservationFromStore.conducteur.addresse)
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "infos" }, [
-          _c("h5", [_vm._v("INFORMATION SUR LA VOITURE")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Marque:")]),
-              _c("span", [
-                _vm._v(
-                  "      " +
-                    _vm._s(
-                      _vm.ReservationFromStore.marque +
-                        "  " +
-                        _vm.ReservationFromStore.modele
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "4px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Adresse:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(_vm.ReservationFromStore.client.addresse)
                     )
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("immatriculation:")]),
-              _c("span", [
-                _vm._v("      " + _vm._s(_vm.ReservationFromStore.immatricule))
-              ])
-            ])
+                  ])
+                ])
+              ]
+            )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Agence depart:")]),
-              _c("span", [
-                _vm._v("      " + _vm._s(_vm.ReservationFromStore.Lieu_depart))
-              ])
+          _c("div", { staticClass: "infos" }, [
+            _c("h5", { staticStyle: { "border-bottom": "4px solid #000" } }, [
+              _vm._v("INFORMATION CONDUCTEUR")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Agence retour:")]),
-              _c("span", [
-                _vm._v("      " + _vm._s(_vm.ReservationFromStore.Lieu_retour))
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Jour deprat:")]),
-              _c("span", [
-                _vm._v("      " + _vm._s(_vm.ReservationFromStore.Date_depart))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Retour Prevu:")]),
-              _c("span", [
-                _vm._v("      " + _vm._s(_vm.ReservationFromStore.Date_retour))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Retour Reel:")]),
+            _c("p", [
+              _c("span", [_vm._v("Nom & Prenom:")]),
               _c("span", [
                 _vm._v(
-                  "      " + _vm._s(_vm.ReservationFromStore.Date_retour_reelle)
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Carburant depart:")]),
-              _c("span", [
-                _vm._v(
-                  "      " + _vm._s(_vm.ReservationFromStore.carburant_depart)
+                  "      " +
+                    _vm._s(_vm.ReservationFromStore.conducteur.nom) +
+                    "   " +
+                    _vm._s(_vm.ReservationFromStore.conducteur.prenom)
                 )
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("Carburant retour:")]),
+            _c("p", [
+              _c("span", [_vm._v("Date et lieu de naissance:")]),
               _c("span", [
                 _vm._v(
-                  "      " + _vm._s(_vm.ReservationFromStore.carburant_retour)
+                  "      " +
+                    _vm._s(_vm.ReservationFromStore.conducteur.dateNaissance) +
+                    "   " +
+                    _vm._s(_vm.ReservationFromStore.conducteur.lieuNaissance)
                 )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("KM depart:")]),
-              _c("span", [
-                _vm._v("      " + _vm._s(_vm.ReservationFromStore.km_depart))
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-xs-4" }, [
-              _c("span", [_vm._v("KM retour:")]),
-              _c("span", [
-                _vm._v("      " + _vm._s(_vm.ReservationFromStore.km_retour))
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("table", { staticClass: "table" }, [
-            _vm._m(4),
+            _vm.ReservationFromStore.conducteur.pieceIdentite === "cin"
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "row",
+                    staticStyle: { "padding-bottom": "4px" }
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("N de C.I.N:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(_vm.ReservationFromStore.conducteur.numPiece)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("Valable jusqu'au:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(
+                              _vm.ReservationFromStore.conducteur
+                                .dateDelivrPiece
+                            )
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              : _vm.ReservationFromStore.conducteur.pieceIdentite === "passport"
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "row",
+                    staticStyle: { "padding-bottom": "4px" }
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("N de Passport:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(_vm.ReservationFromStore.conducteur.numPiece)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("Delivre le:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(
+                              _vm.ReservationFromStore.conducteur
+                                .dateDelivrPiece
+                            )
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("a:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(
+                              _vm.ReservationFromStore.conducteur
+                                .lieuDelivrPiece
+                            )
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              : _c(
+                  "div",
+                  {
+                    staticClass: "row",
+                    staticStyle: { "padding-bottom": "4px" }
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("N de C.I.N:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(_vm.ReservationFromStore.conducteur.numPiece)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                      _c("span", [_vm._v("Valable jusqu'au:")]),
+                      _c("span", [
+                        _vm._v(
+                          "      " +
+                            _vm._s(
+                              _vm.ReservationFromStore.conducteur
+                                .dateDelivrPiece
+                            )
+                        )
+                      ])
+                    ])
+                  ]
+                ),
             _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("td", [
-                  _vm._v(_vm._s(_vm.ReservationFromStore.nombreJours))
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.pu))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.Montant))]),
-                _vm._v(" "),
-                _c("td", [_vm._v("-")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("-")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.Montant))]),
-                _vm._v(" "),
-                _c("td", [
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "4px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("N d'entree:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(_vm.ReservationFromStore.conducteur.numPermis)
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                _c("span", [_vm._v("N de permis:")]),
+                _c("span", [
                   _vm._v(
-                    _vm._s(
-                      _vm.ReservationFromStore.Montant * 0.2 +
-                        _vm.ReservationFromStore.Montant
-                    )
+                    "      " +
+                      _vm._s(_vm.ReservationFromStore.conducteur.numPermis)
                   )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                _c("span", [_vm._v("Delivre le:")]),
+                _c("span", [
+                  _vm._v(
+                    "      " +
+                      _vm._s(
+                        _vm.ReservationFromStore.conducteur.dateDelivrPermis
+                      )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                _c("span", [_vm._v("a:")]),
+                _c("span", [
+                  _vm._v(
+                    "      " +
+                      _vm._s(
+                        _vm.ReservationFromStore.conducteur.lieuDelivrPermis
+                      )
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "4px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Adresse:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(_vm.ReservationFromStore.client.addresse)
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "infos" }, [
+            _c("h5", { staticStyle: { "border-bottom": "4px solid #000" } }, [
+              _vm._v("INFORMATION SUR LA VOITURE")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "3px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Marque:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(
+                          _vm.ReservationFromStore.marque +
+                            "  " +
+                            _vm.ReservationFromStore.modele
+                        )
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.carburant))]),
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("immatriculation:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " + _vm._s(_vm.ReservationFromStore.immatricule)
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "5px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Agence depart:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " + _vm._s(_vm.ReservationFromStore.Lieu_depart)
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.depot))]),
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Agence retour:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " + _vm._s(_vm.ReservationFromStore.Lieu_retour)
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "5px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Jour deprat:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " + _vm._s(_vm.ReservationFromStore.Date_depart)
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.solde))])
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Retour Prevu:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " + _vm._s(_vm.ReservationFromStore.Date_retour)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Retour Reel:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(_vm.ReservationFromStore.Date_retour_reelle)
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "5px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Carburant depart:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(_vm.ReservationFromStore.carburant_depart)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("Carburant retour:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " +
+                        _vm._s(_vm.ReservationFromStore.carburant_retour)
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", staticStyle: { padding: "5px 0" } },
+              [
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("KM depart:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " + _vm._s(_vm.ReservationFromStore.km_depart)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4 col-xs-4" }, [
+                  _c("span", [_vm._v("KM retour:")]),
+                  _c("span", [
+                    _vm._v(
+                      "      " + _vm._s(_vm.ReservationFromStore.km_retour)
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("table", { staticClass: "table" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("tbody", [
+                _c("tr", [
+                  _c("td", [
+                    _vm._v(_vm._s(_vm.ReservationFromStore.nombreJours))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.pu))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.Montant))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v("-")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v("-")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.Montant))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      _vm._s(
+                        _vm.ReservationFromStore.Montant * 0.2 +
+                          _vm.ReservationFromStore.Montant
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(_vm._s(_vm.ReservationFromStore.carburant))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.depot))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.ReservationFromStore.solde))])
+                ])
               ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(5)
-      ])
+          ]),
+          _vm._v(" "),
+          _vm._m(4)
+        ]
+      )
     ]
   )
 }
@@ -45014,12 +45355,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("h6", [_vm._v("location de voitures")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_c("span", [_vm._v("N d'entree:")])])
   },
   function() {
     var _vm = this
@@ -64933,7 +65268,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 var app = new Vue({
   el: '#app',
   router: router,
-  store: _store__WEBPACK_IMPORTED_MODULE_5__["default"]
+  store: _store__WEBPACK_IMPORTED_MODULE_5__["default"],
+  uri: 'localhost:8080'
 });
 
 /***/ }),
@@ -65820,9 +66156,7 @@ var state = {
   clients: {},
   clientsActif: {},
   clientsSearch: {},
-  payes: [],
   clients_errors: false,
-  payes_errors: {},
   clientsActif_errors: false
 };
 var getters = {
@@ -65840,12 +66174,6 @@ var getters = {
   },
   clientsActifErrors: function clientsActifErrors(state) {
     return state.clientsActif_errors;
-  },
-  allPayes: function allPayes(state) {
-    return state.payes;
-  },
-  payesErrors: function payesErrors(state) {
-    return state.payes_errors;
   }
 };
 var actions = {
@@ -65881,7 +66209,7 @@ var actions = {
               }
 
               _context.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/clients?page=' + args.page).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/clients?page=' + args.page).then(function (response) {
                 commit('setClients', response.data);
                 console.log('getdata Client');
               })["catch"](function (errors) {
@@ -65928,7 +66256,7 @@ var actions = {
               }
 
               _context2.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/clients/actif/paginate?page=' + args.page).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/clients/actif/paginate?page=' + args.page).then(function (response) {
                 commit('setClientsActif', response.data);
                 console.log('getdata Client Actif');
               })["catch"](function (errors) {
@@ -65963,7 +66291,7 @@ var actions = {
 
             case 4:
               _context3.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/clients/find/' + keyword + '?page=' + page).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/clients/find/' + keyword + '?page=' + page).then(function (response) {
                 commit('setClientsSearch', response.data);
                 console.log('getdata Client Search:' + keyword);
               })["catch"]();
@@ -65985,7 +66313,7 @@ var actions = {
             case 0:
               commit = _ref4.commit, dispatch = _ref4.dispatch;
               _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('http://localhost:8000/api/clients/' + id).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('/api/clients/' + id).then(function (response) {
                 if (response.data == 1) {
                   dispatch('getClients', {
                     page: 1,
@@ -66013,37 +66341,6 @@ var actions = {
         }
       }, _callee4);
     }))();
-  },
-  getPayes: function getPayes(_ref5) {
-    var _arguments4 = arguments;
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var commit, refresh;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              commit = _ref5.commit;
-              refresh = _arguments4.length > 1 && _arguments4[1] !== undefined ? _arguments4[1] : false;
-
-              if (!(!state.clients.length || refresh == true)) {
-                _context5.next = 5;
-                break;
-              }
-
-              _context5.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/payes').then(function (response) {
-                commit('setPayes', response.data);
-              })["catch"](function (errors) {
-                commit('setPayesErrors', errors);
-              });
-
-            case 5:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    }))();
   }
 };
 var mutations = {
@@ -66061,12 +66358,6 @@ var mutations = {
   },
   setClientsSearch: function setClientsSearch(state, clients) {
     return state.clientsSearch = clients;
-  },
-  setPayes: function setPayes(state, payes) {
-    return state.payes = payes;
-  },
-  setPayesErrors: function setPayesErrors(state, errors) {
-    return state.payes_errors = errors;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66162,9 +66453,8 @@ var actions = {
               }
 
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/vehicules/marque/marques').then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/vehicules/marque/marques').then(function (response) {
                 commit('setMarques', response.data);
-                console.log('getdata');
               })["catch"](function (errors) {
                 commit('setMarquesErrors', errors);
               });
@@ -66178,8 +66468,6 @@ var actions = {
     }))();
   },
   getModelsByMarques: function getModelsByMarques(_ref2, marque) {
-    var _this = this;
-
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -66188,16 +66476,13 @@ var actions = {
             case 0:
               commit = _ref2.commit;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/vehicules/marque/modeles/' + marque).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/vehicules/marque/modeles/' + marque).then(function (response) {
                 commit('setModeles', response.data);
               })["catch"](function (error) {
-                _this.errorsModeles = error;
+                commit('setModelesErrors', error);
               });
 
             case 3:
-              console.log('---' + marque);
-
-            case 4:
             case "end":
               return _context2.stop();
           }
@@ -66315,7 +66600,7 @@ var actions = {
               }
 
               _context.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/reservations?page=' + args.page).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/reservations?page=' + args.page).then(function (response) {
                 commit('setReservations', response.data);
                 console.log('getdata Reservations');
               })["catch"](function (errors) {
@@ -66397,7 +66682,7 @@ var actions = {
 
             case 4:
               _context3.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/reservations/find/' + keyword + '?page=' + page).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/reservations/find/' + keyword + '?page=' + page).then(function (response) {
                 commit('setReservationsSearch', response.data);
                 console.log('getdata Search Reservations: ' + keyword);
               })["catch"]();
@@ -66420,7 +66705,7 @@ var actions = {
               commit = _ref4.commit, dispatch = _ref4.dispatch;
               console.log(id);
               _context4.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('http://localhost:8000/api/reservations/' + id).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('/api/reservations/' + id).then(function (response) {
                 if (response.data == 1) {
                   dispatch('getReservations', {
                     page: 1,
@@ -66486,7 +66771,7 @@ var actions = {
             case 0:
               commit = _ref7.commit, dispatch = _ref7.dispatch;
               $.ajax({
-                url: 'http://localhost:8000/api/prolongations',
+                url: '/api/prolongations',
                 type: 'post',
                 datatype: 'json',
                 data: $("#formProlongation").serialize(),
@@ -66522,7 +66807,7 @@ var actions = {
             case 0:
               state = _ref8.state, commit = _ref8.commit;
               _context7.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/prolongations/find/' + keyword).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/prolongations/find/' + keyword).then(function (response) {
                 for (var i = 0; i < state.reservationsActif.data.length; i++) {
                   if (state.reservationsActif.data[i].numRes === keyword) {
                     state.reservationsActif.data[i].prolongation = response.data;
@@ -66549,7 +66834,7 @@ var actions = {
               state = _ref9.state, commit = _ref9.commit, dispatch = _ref9.dispatch;
               prolongation = _ref10.prolongation, keyword = _ref10.keyword;
               _context8.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('http://localhost:8000/api/prolongations/' + prolongation).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('/api/prolongations/' + prolongation).then(function (response) {
                 dispatch('getProlongations', keyword);
               })["catch"](function (error) {});
 
@@ -66560,6 +66845,32 @@ var actions = {
         }
       }, _callee8);
     }))();
+  },
+  validateApp: function validateApp(_ref11, key) {
+    var state = _ref11.state;
+    //10 6 12 22
+    var split_key = key.split('-');
+
+    if (split_key.length == 4) {
+      var date = new Date();
+      var dm, da, dh, di;
+      dm = split_key[0][split_key[0].length - 2] + split_key[0][split_key[0].length - 1];
+      da = split_key[1][split_key[1].length - 2];
+      dh = split_key[2][split_key[2].length - 2] + split_key[2][split_key[2].length - 1];
+      di = split_key[3][split_key[3].length - 2] + split_key[3][split_key[3].length - 1];
+      console.log('dm=' + dm);
+      console.log('da=' + da);
+      console.log('dh=' + dh);
+      console.log('di=' + di);
+
+      if (dm == date.getDate() && da == date.getDay() && dh == date.getHours()) {
+        if (di >= date.getMinutes() - 3 && di <= date.getMinutes() + 3) {
+          console.log('if222');
+        }
+
+        console.log('if11');
+      }
+    }
   }
 };
 var mutations = {
@@ -66671,7 +66982,7 @@ var actions = {
               }
 
               _context.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/vehicules?page=' + args.page).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/vehicules?page=' + args.page).then(function (response) {
                 commit('setVehicules', response.data);
                 console.log('getdata vehicules');
               })["catch"](function (errors) {
@@ -66753,7 +67064,7 @@ var actions = {
 
             case 4:
               _context3.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/api/vehicules/find/' + keyword + '?page=' + page).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/vehicules/find/' + keyword + '?page=' + page).then(function (response) {
                 commit('setVehiculesSearch', response.data);
                 console.log('vehicules search:' + keyword);
               })["catch"]();
@@ -66775,7 +67086,7 @@ var actions = {
             case 0:
               commit = _ref4.commit, dispatch = _ref4.dispatch;
               _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('http://localhost:8000/api/vehicules/' + id).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('/api/vehicules/' + id).then(function (response) {
                 if (response.data == 1) {
                   dispatch('getVehicules', {
                     page: 1,
@@ -66849,8 +67160,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\user\Desktop\Laravel\gestion_voiture_locale-vuex\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\user\Desktop\Laravel\gestion_voiture_locale-vuex\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\softwaycars\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\softwaycars\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -199,7 +199,7 @@ import { mapActions } from 'vuex';
     methods: {
         addVehicule()
         {   
-            var url = 'http://localhost:8000/api/vehicules/';
+            var url = '/api/vehicules/';
             var type = 'ajoutee!';
             if(this.editMethod) {url+=this.vehicule.immatricule;type = 'modifiee!';}
             $.ajax({

@@ -1,5 +1,43 @@
 <template>
-    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" >
+	<div>
+		 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" v-if="!valide">
+			 	<div class="container">
+    				<div class="row justify-content-center">
+        				<div class="col-md-8">
+									<div class="card" style="margin-top: 10%;margin-left: 16%;">
+							<div class="card-header">
+								<p>Veuillez Contacter Administrateur:</p>
+								<p style="text-decoration: underline;">tel: +212 06 29 49 65 77</p>
+								<p style="text-decoration: underline;">Mail: </p>
+							</div>
+
+							<div class="card-body">
+								<form>
+                        <div class="form-group row">
+                            
+
+                            <div class="col-md-6">
+                                <input id="serial" type="text" class="form-control" placeholder="number ID" name="serial" v-model="serial" required  autofocus>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong></strong>
+                                    </span>
+                               
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                            <button type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+	 	</div>
+    	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" v-if="valide" >
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#">
@@ -142,6 +180,8 @@
 <reservationEdit-component  :reservation="reservation" :editMethod="editMethod" @toggleEdit="editMethod = !editMethod" v-if="editMethod" ></reservationEdit-component>
 
     </div>
+
+		</div>
 </template>
 
 <script>
@@ -184,6 +224,8 @@ import { mapGetters, mapActions } from 'vuex';
                 errors: '',
 				isTabActif: true,
 				searchField: '',
+				valide: true,
+				serial: '',
             }
         }
         ,
@@ -191,6 +233,9 @@ import { mapGetters, mapActions } from 'vuex';
         {
 		   await this.getReservationsActif(1);
 		   this.reservations = this.allReservationsActif.data;
+		    ///////////
+		   this.validateApp('123ddhdgfe4-11132-2278-3361');
+		   ////////////////
 		}
 		,
 		methods:{
@@ -215,7 +260,7 @@ import { mapGetters, mapActions } from 'vuex';
 					
                 }.bind(this));
             }
-            ,...mapActions(['getReservations', 'getReservationsActif', 'getReservationsSearch']),
+            ,...mapActions(['getReservations', 'getReservationsActif', 'getReservationsSearch', 'validateApp']),
         }
         ,
         computed:{

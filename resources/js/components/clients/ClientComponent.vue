@@ -98,16 +98,16 @@
 										<td>{{client.numPermis}}</td>
 										<td>{{client.dateLirePermis}}</td>
 										<td>{{client.dateLivrePiece}}</td>
-										<td>{{client.vdeliverpermis}}</td>
+										<td>{{client.lieuDelivrPermis}}</td>
 										<td>{{client.dateNaissance}}</td>
-										<td>{{client.vnaiss}}</td>
+										<td>{{client.lieuNaissance}}</td>
 										<td>{{client.dateDelivrPermis}}</td>
-										<td>{{client.vdeliverpiece}}</td>
+										<td>{{client.lieuDelivrPiece}}</td>
 										<td>{{client.codePostale}}</td>
 										<td>{{client.email}}</td>
 										<td>{{client.pieceIdentiteScan}}</td>
 										<td>{{client.permisScan}}</td>
-										<td>{{client.paye}}</td>
+										<td>{{client.nationalite}}</td>
 										<td>{{client.addresse}}</td>
 										<td>{{client.ville}}</td>
 	

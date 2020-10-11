@@ -86,9 +86,6 @@
 
     </div>
 
-    
-        
-
 <div class="form-group row justify-content-center">
  <div class="col-sm-3 col-3">
             <div class="col-sm-10">
@@ -114,9 +111,7 @@
             <div class="col-sm-3">
             <div class="col-sm-10">
             <label for="lieuDelivrPiece" class="col-sm-10 col-form-label text-center">lieu Delivr Piece</label>
-            <select name='lieuDelivrPiece' class="form-control text-center" id='lieuDelivrPiece' v-model="client.lieuDelivrPiece" >
-            <option v-for="ville in allPayes.villes" :key="ville.id"  :value="ville.id">{{ville.ville}}</option>       
-            </select>
+            <input type="text" name='lieuDelivrPiece' class="form-control text-center" id='lieuDelivrPiece' v-model="client.lieuDelivrPiece" >
             <p style="color:red;" v-if="errors" >{{errors.lieuDelivrPiece}}</p>
             </div>
         </div>
@@ -124,9 +119,7 @@
             <div class="col-sm-3">
             <div class="col-sm-10">
             <label for="lieuDelivrPermis" class="col-sm-10 col-form-label text-center">lieu Delivr Permis</label>
-            <select name='lieuDelivrPermis' class="form-control text-center" id='lieuDelivrPermis' v-model="client.lieuDelivrPermis" >
-            <option v-for="ville in allPayes.villes" :key="ville.id"  :value="ville.id">{{ville.ville}}</option>       
-            </select>
+            <input type="text" name='lieuDelivrPermis' class="form-control text-center" id='lieuDelivrPermis' v-model="client.lieuDelivrPermis" >
             <p style="color:red;" v-if="errors" >{{errors.lieuDelivrPermis}}</p>
             </div>
         </div>
@@ -144,9 +137,7 @@
             <div class="col-sm-3">
             <div class="col-sm-10">
             <label for="lieuNaissance" class="col-sm-10 col-form-label text-center">lieu Naissance</label>
-            <select name='lieuNaissance' class="form-control text-center" id='lieuNaissance' v-model="client.lieuNaissance" >
-            <option v-for="ville in allPayes.villes" :key="ville.id"  :value="ville.id">{{ville.ville}}</option>       
-            </select>
+            <input type="text" name='lieuNaissance' class="form-control text-center" id='lieuNaissance' v-model="client.lieuNaissance" >
             <p style="color:red;" v-if="errors" >{{errors.lieuNaissance}}</p>
             </div>
         </div>
@@ -202,20 +193,16 @@
             <div class="col-sm-3">
             <div class="col-sm-10">
             <label for="nationalite" class="col-sm-10 col-form-label text-center">nationalite</label>
-             <select name='nationalite' class="form-control text-center" id='payes'>
-                <option v-for="paye in allPayes.payes" :key="paye.id"  :value="paye.id">{{paye.paye}}</option> 
-              </select>
-              <p v-if="errors" >{{errors.nationalite}}</p>
+            <input type="text" name='nationalite' class="form-control text-center" id='nationalite' v-model="client.nationalite">            
+            <p v-if="errors" >{{errors.nationalite}}</p>
             </div>
         </div>       
 
     <div class="col-sm-3">
             <div class="col-sm-10">
-            <label for="ville_id" class="col-sm-10 col-form-label text-center">ville</label>
-            <select name='ville_id' class="form-control text-center" id='villes'>
-            <option v-for="ville in allPayes.villes" :key="ville.id"  :value="ville.id">{{ville.ville}}</option>       
-            </select>
-          <p v-if="errors" >{{errors.ville}}</p>
+            <label for="ville" class="col-sm-10 col-form-label text-center">ville</label>
+            <input type="text" name='ville' class="form-control text-center" id='ville' v-model="client.ville">
+            <p v-if="errors" >{{errors.ville}}</p>
             </div>
         </div>
 </div>
@@ -225,6 +212,7 @@
 
        <button type="button"  v-if="editMethod" class="btn btn-danger" @click='deleteClient(client.numPiece)'>Delete</button>
 
+
 </div>
         </fieldset>
     </form>
@@ -232,7 +220,7 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
     export default {
     props:[
         'editMethod',
@@ -259,7 +247,7 @@ import { mapGetters, mapActions } from 'vuex';
                     dateDelivrPermis: '',
                     nationalite:'',
                     addresse: '',
-                    ville_id:'',
+                    ville:'',
                     lieuDelivrPiece:'',
                     lieuDelivrPermis:'',
                     dateLivrePermis: '',
@@ -274,14 +262,14 @@ import { mapGetters, mapActions } from 'vuex';
             errors: '',
             }
         },
-        async created()
+        created()
         {
-            await this.getPayes();
+           
         },
     methods: {
         addClient()
         {   
-            var url = 'http://localhost:8000/api/clients/';
+            var url = '/api/clients/';
             var type = 'ajoutee!';
             var form  = $("#form")[0];
             var formData = new FormData(form);
@@ -324,11 +312,10 @@ import { mapGetters, mapActions } from 'vuex';
                })
         },
         onSubmit(){},
-        ...mapActions(['getPayes', 'getClients', 'getClientsActif', 'deleteClient']),
+        ...mapActions(['getClients', 'getClientsActif', 'deleteClient']),
         }
         ,
         computed:{
-            ...mapGetters(['allPayes']),
         }
         
        

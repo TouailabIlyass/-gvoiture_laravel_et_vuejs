@@ -7,6 +7,11 @@ use \App\Vehicule;
 
 class VehiculeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $vehicules = Vehicule::all();
@@ -111,7 +116,7 @@ class VehiculeController extends Controller
          Vehicule::create($this->validateData());
          return true;
         }catch(Exception $e){
-        return false;
+        return $e->getMessage();
         } 
         return false;
     }
@@ -131,7 +136,7 @@ class VehiculeController extends Controller
         }
         catch(Exception $e)
         {
-            return false;
+            return $e->getMessage();
         }
         return false;
     }
@@ -143,7 +148,7 @@ class VehiculeController extends Controller
             return true;
         }catch(\Exception $e)
         {
-            return false;
+            return $e->getMessage();
         }
     }
 
@@ -162,7 +167,8 @@ class VehiculeController extends Controller
     }
 
     public function restGetOne($keyword)
-    {   if(strlen(trim($keyword)) == 0) return;
+    {   
+        if(strlen(trim($keyword)) == 0) return;
         $data = Vehicule::where('immatricule', 'LIKE', '%'.$keyword.'%')
         ->orWhere('marque','LIKE',"%{$keyword}%")
         ->orWhere('modele','LIKE',"%{$keyword}%")

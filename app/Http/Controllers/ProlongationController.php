@@ -7,6 +7,10 @@ use \App\Prolongation;
 
 class ProlongationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function restGetByNumRes($numRes)
     {

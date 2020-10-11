@@ -13,6 +13,11 @@ use App\Addresse;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+       // $this->middleware('auth');
+    }
+
     public function index()
     {
         $clients = DB::table('clients')
@@ -23,20 +28,7 @@ class ClientController extends Controller
         return view('client.clients',compact('clients','client'));
     }
 
-    public function create(Request $request)
-    {
-        $villes = Ville::all();
-        $payes = Paye::all();
-        return view('',compact('villes','payes'));
-    }
-    public function listOfPayes()
-    {
-       // return DB::table('payes')->join('villes','payes.id','=','villes.id_paye')->get();
-       $villes = Ville::all();
-       $payes = Paye::all();
-       $data = array('payes'=>$payes,'villes'=>$villes);
-       return $data;
-    }
+   
     public function store(Request $request)
     {
         $client = new Client();
@@ -83,7 +75,7 @@ class ClientController extends Controller
         'permisScan' => 'required',
         'nationalite' => 'required',
         'addresse' => 'required',
-        'ville_id' =>'required'
+        'ville' =>'required'
         ]);
     }
     
@@ -91,17 +83,7 @@ class ClientController extends Controller
     public function restIndex()
     {   
         $clients = DB::table('clients')
-        ->join('payes', 'clients.nationalite', '=', 'payes.id')
-        ->join('villes','clients.ville_id','=','villes.id')
-        ->join('villes as vnaiss','clients.lieuNaissance','=','vnaiss.id')
-        ->join('villes as vdeliverpiece','clients.lieuDelivrPiece','=','vdeliverpiece.id')
-        ->join('villes as vdeliverpermis','clients.lieuDelivrPermis','=','vdeliverpermis.id')
         ->select('clients.*')
-        ->addSelect('payes.paye')
-        ->addSelect('villes.ville')
-        ->addSelect('vnaiss.ville','vnaiss.ville as vnaiss')
-        ->addSelect('vdeliverpiece.ville','vdeliverpiece.ville as vdeliverpiece')
-        ->addSelect('vdeliverpermis.ville','vdeliverpermis.ville as vdeliverpermis')
         ->orderBy('created_at','DESC')
         ->paginate(2);
        return $clients;
@@ -112,17 +94,7 @@ class ClientController extends Controller
         $clients = DB::table('clients')
         ->join('reservations','clients.numPiece','=','reservations.numPiece')
         ->whereNull('reservations.Date_retour_reelle')
-        ->join('payes', 'clients.nationalite', '=', 'payes.id')
-        ->join('villes','clients.ville_id','=','villes.id')
-        ->join('villes as vnaiss','clients.lieuNaissance','=','vnaiss.id')
-        ->join('villes as vdeliverpiece','clients.lieuDelivrPiece','=','vdeliverpiece.id')
-        ->join('villes as vdeliverpermis','clients.lieuDelivrPermis','=','vdeliverpermis.id')
         ->select('clients.*')
-        ->addSelect('payes.paye')
-        ->addSelect('villes.ville')
-        ->addSelect('vnaiss.ville','vnaiss.ville as vnaiss')
-        ->addSelect('vdeliverpiece.ville','vdeliverpiece.ville as vdeliverpiece')
-        ->addSelect('vdeliverpermis.ville','vdeliverpermis.ville as vdeliverpermis')
         ->orderBy('clients.created_at','DESC')
         ->paginate(2);
        return $clients;
@@ -149,9 +121,9 @@ class ClientController extends Controller
             $error='{"errors":{"pieceIdentiteScan":"piece identite is required","permisScan":"permis is required"}}';
             return $error;
         } catch (\Exception $e) {
-            return false;
+            return $e->getMessage();
         } catch (\Throwable $e) {
-            return false;
+            return $e->getMessage();
         }
     }
 
@@ -165,7 +137,6 @@ class ClientController extends Controller
                     'permisScan' => $client->permisScan,
                     'pieceIdentiteScan' => $client->pieceIdentiteScan
                 ]);
-            
             }
             if($request->hasFile('uploadPermisScan')){
                 $date = date('Y-m-d-H-i-s');
@@ -190,7 +161,7 @@ class ClientController extends Controller
             $client->update($this->validateClientData());
             return true;
         }catch(Exception $e){
-            return false;
+            return $e->getMessage();
         }
         return false;
     }
@@ -210,7 +181,7 @@ class ClientController extends Controller
             return true;
         }catch(\Exception $e)
         {
-            return false;
+            return $e->getMessage();
         }
     }
 }

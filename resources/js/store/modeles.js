@@ -24,10 +24,9 @@ const actions = {
     async  getMarques({commit})
         {       
             if (!state.marques.length){
-            await  axios.get('http://localhost:8000/api/vehicules/marque/marques')
+            await  axios.get('/api/vehicules/marque/marques')
                 .then(response => {
                        commit('setMarques',response.data);
-                       console.log('getdata');
                     })
                 .catch(errors => { commit('setMarquesErrors',errors);});
             }
@@ -35,12 +34,11 @@ const actions = {
         },
 
         async  getModelsByMarques({commit}, marque){
-            await  axios.get('http://localhost:8000/api/vehicules/marque/modeles/'+marque)
+            await  axios.get('/api/vehicules/marque/modeles/'+marque)
                  .then(response => {
                     commit('setModeles',response.data);
                      })
-                 .catch(error => {this.errorsModeles = error});
-                console.log('---'+marque);
+                 .catch(error => {commit('setModelesErrors',error);});
               },
 };
 
